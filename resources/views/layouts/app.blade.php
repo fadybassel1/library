@@ -12,6 +12,24 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
+    <link rel="stylesheet" href="{{ asset('mdb/css/bootstrap.min.css')}}">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('mdb/css/mdb.min.css')}} ">
+    <!-- Plugin file -->
+    <link rel="stylesheet" href="{{ asset('mdb/css/addons/datatables.min.css') }}">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="{{ asset('mdb/css/style.css') }}">
+    <!--Jquery -->
+    <script type="text/javascript" src="{{ asset('mdb/js/jquery.min.js') }}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ asset('mdb/js/popper.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ asset('mdb/js/bootstrap.min.js') }}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{ asset('mdb/js/mdb.min.js') }}"></script>
+    <!-- Plugin file -->
+    <script src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
