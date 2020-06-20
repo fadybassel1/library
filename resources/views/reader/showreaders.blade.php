@@ -32,8 +32,8 @@
             <td class="pt-3-half">{{$reader->phone}}</td>
             <td class="pt-3-half">{{$reader->formno}}</td>
             <td class="pt-3-half"><a href="/readers/{{$reader->id}}">جميع البيانات</a></td>
-            <td class="pt-3-half"><a href="#">تعديل</a></td>
-            <td class="pt-3-half"><a href="#">حذف</a></td>
+            <td class="pt-3-half"><a class="btn btn-primary btn-rounded btn-sm my-0" href="{{route('readers.edit',$reader)}}">تعديل</a></td>
+            <td class="pt-3-half"><a class="btn btn-danger btn-rounded btn-sm my-0" href="#">حذف</a></td>
             @php($i++)
           </tr>
         @empty

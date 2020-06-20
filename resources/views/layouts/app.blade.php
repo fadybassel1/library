@@ -72,10 +72,10 @@
                               <a class="nav-link" href="{{ route('home') }}">{{ __('الكتب') }}</a>
                           </li>
                           <li class="nav-item">
-                              <a class="nav-link" href="/allusers">{{ __('الاعضاء') }}</a>
+                          <a class="nav-link" href="{{route('readers.index')}}">{{ __('الاعضاء') }}</a>
                           </li>
                                <li class="nav-item">
-                                   <a class="nav-link" href="/register">{{ __('تسجيل عضو') }}</a>
+                               <a class="nav-link" href="{{route('readers.create')}}">{{ __('تسجيل عضو') }}</a>
                                </li>
                                <li class="nav-item">
 

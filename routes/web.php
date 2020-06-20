@@ -19,6 +19,6 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/create', 'BookController@create');
-Route::get('/allusers', 'ReaderController@showall');
-Route::get('/readers/{readerid}', 'ReaderController@show');
-Route::get('/register', 'ReaderController@create');
+
+
+Route::resource('readers', 'ReaderController');
