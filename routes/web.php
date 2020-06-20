@@ -22,3 +22,8 @@ Route::get('/create', 'BookController@create');
 
 
 Route::resource('readers', 'ReaderController');
+
+
+Route::get('/takepicture',function(){
+return view('reader.takepicture');
+})->name('readers.takepicture');
