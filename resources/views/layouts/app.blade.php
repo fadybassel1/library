@@ -76,12 +76,15 @@
                               aria-haspopup="true" aria-expanded="false">الاعضاء</a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('readers.index')}}">جميع الاعضاء</a>
-                            <a class="dropdown-item" href="{{route('readers.takepicture')}}">اخذ صورة</a>
+                            <a class="dropdown-item" href="{{route('readers.takepicture')}}">استخراج كارت</a>
+                            <a class="dropdown-item" href="{{route('readers.create')}}">تسجيل عضو</a>
                             </div>
                           </li>
+                              
+
                                <li class="nav-item">
-                               <a class="nav-link" href="{{route('readers.create')}}">{{ __('تسجيل عضو') }}</a>
-                               </li>
+                                <a class="nav-link" href="{{route('attendance')}}">{{ __('تسجيل') }}</a>
+                                </li>
                                <li class="nav-item">
 
                                    <a class="nav-link" onclick="event.preventDefault();

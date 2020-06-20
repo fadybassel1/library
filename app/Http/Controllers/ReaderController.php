@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Reader;
-
+use App\Visit;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ReaderController extends Controller
 {
@@ -95,14 +96,25 @@ public function show($readerid){
         
     }
 
+   
+    public function attend(Request $request)
+    {
+     
+      $request->validate([
+        'id' => "numeric",
+      ]);
 
 
-
-
-
-
-
-
+      try{
+        $reader=\App\Reader::findOrFail($request->id);
+        Visit::create(['reader_id'=>$reader->id , 'day' =>date("Y-m-d"),'time'=>date('Y-m-d H:i:s')]);
+        return view('reader.attendance',compact('reader'));
+      }
+      catch(ModelNotFoundException $e)
+      {
+       return redirect('attendance')->with('error','لا يوجد عضو بهذا الرقم');
+      }
+      }
 
 
 

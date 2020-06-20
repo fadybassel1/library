@@ -27,3 +27,11 @@ Route::resource('readers', 'ReaderController');
 Route::get('/takepicture',function(){
 return view('reader.takepicture');
 })->name('readers.takepicture');
+
+Route::get('/attendance',function(){
+    return view('reader.attendance');
+}
+)->name('attendance');
+
+
+Route::post('/storess' ,'ReaderController@attend')->name('storeattendance');

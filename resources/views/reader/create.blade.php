@@ -290,6 +290,7 @@
             <!-- PAGE 3 الكنيسة + الخدمة -->
             <h3>الكنيسة / الخدمة</h3>
             <section>
+                <div>
                 <p>(*) يجب ان تملاء هذه الحقول</p>
                 <label for="church">اسم الكنيسة</label>
                 <input id="church" name="church" type="text" class="form-control">
@@ -350,6 +351,7 @@
                     <label>الكنيسة</label>
                     <input type="text" name="servicechurch" class="form-control" />
                 </div>
+                
             </section>
         </div>
     </form>

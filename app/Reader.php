@@ -12,4 +12,8 @@ class Reader extends Model
     return $this->morphOne('App\Photo', 'photoable');
 }
 
+public function visits() {
+  return $this->belongsToMany('App\Visit');
+}
+
 }

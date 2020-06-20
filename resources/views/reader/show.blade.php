@@ -173,7 +173,7 @@
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="text-center">
-                                    <a href="" class="btn btn-md btn-primary"> تعديل</a>
+                                    <a href="{{route('readers.edit',$reader)}}" class="btn btn-md btn-primary"> تعديل</a>
                                 </div>
                             </div>
                         </div>
