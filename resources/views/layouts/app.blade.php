@@ -71,8 +71,13 @@
                           <li class="nav-item">
                               <a class="nav-link" href="{{ route('home') }}">{{ __('الكتب') }}</a>
                           </li>
-                          <li class="nav-item">
-                          <a class="nav-link" href="{{route('readers.index')}}">{{ __('الاعضاء') }}</a>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">الاعضاء</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{route('readers.index')}}">جميع الاعضاء</a>
+                            <a class="dropdown-item" href="{{route('readers.takepicture')}}">اخذ صورة</a>
+                            </div>
                           </li>
                                <li class="nav-item">
                                <a class="nav-link" href="{{route('readers.create')}}">{{ __('تسجيل عضو') }}</a>
