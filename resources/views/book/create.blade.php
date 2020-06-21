@@ -11,35 +11,13 @@
     padding-bottom: 15px;
   }
 
-  .hh {
-    text-align: center;
-    color: black;
-    text-shadow: 2px 2px 4px #9FB2C1;
-    font-size: 25px;
-    border: 2px solid #9FB2C1;
-    border-radius: 50px 20px;
-    margin-left: 150px;
-    margin-right: 150px;
-
-  }
-
-  .yy {
-    margin: 0 auto;
-    display: block;
-    width: 60%;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    background: #f1f1f1;
-  }
-
   body {
     font-family: sans-serif;
     color: #3c3939;
   }
 
   .address:hover {
-    box-shadow: 0 19px 38px #9FB2C1, 0 15px 12px #9FB2C1;
+    box-shadow: 0 19px 38px #9FB2C1, 0 15px 12px #2CD2EC;
   }
 
   .infoo {
@@ -55,17 +33,6 @@
     box-shadow: 0 19px 38px #9FB2C1, 0 15px 12px #2CD2EC;
   }
 
-  button {
-    margin-top: 2%;
-    margin-right: 45%;
-    padding: 10px;
-    width: 10%;
-    background: black;
-    color: white;
-    font-size: 14px;
-    border-radius: 20px;
-    border: none;
-  }
 </style>
 @if(Session::has('created'))
 <br>
@@ -73,37 +40,43 @@
   {{ Session::get('created') }}
 </div>
 @endif
+<div style="text-align: center">
 <form action="{{ route('books.store') }}" method="post">
   @csrf
   <div class="address">
 
-    <p class="hh">اسم الكتاب</p>
-    <input name="book_name" class="yy" required="required">
+    <p class="alert alert-info">اسم الكتاب</p>
+    <input name="book_name" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
+    
+    <p class="alert alert-info">ترقيم المكتبة</p>
+    <input name="book_position" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
 
-    <p class="hh">ترقيم المكتبة</p>
-    <input name="book_position" class="yy" required="required">
+    <p class="alert alert-info">اسم الكاتب</p>
+    <input name="book_author" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
 
-    <p class="hh">اسم الكاتب</p>
-    <input name="book_author" class="yy" required="required">
+    <p class="alert alert-info">اسم الجزء/رقم السلسلة</p>
+    <input name="book_seriesno" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
 
-    <p class="hh">اسم الجزء/رقم السلسلة</p>
-    <input name="book_seriesno" class="yy" required="required">
+    <p class="alert alert-info">اسم السلسة</p>
+    <input name="book_seriesname" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
 
-    <p class="hh">اسم السلسة</p>
-    <input name="book_seriesname" class="yy" required="required">
+    <p class="alert alert-info">اسم الناشر</p>
+    <input name="book_publisher" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
 
-    <p class="hh">اسم الناشر</p>
-    <input name="book_publisher" class="yy" required="required">
-
-    <p class="hh">يسمح بالقراءة</p>
-    <input name="book_access" class="yy" type="checkbox" value="1" checked>
+    <p class="alert alert-info">يسمح بالقراءة</p>
+   <div style="text-align: center" class="custom-control custom-switch">
+     <input type="checkbox" name="book_access" value="1" checked class="custom-control-input" id="customSwitches">
+     <label class="custom-control-label" for="customSwitches">يسمح بالقراءة</label>
+</div>
   </div>
   <div class="infoo">
-    <p class="hh">المحتوى</p>
-    <textarea name="book_description" style="width:80%;" class="yy" rows="30" cols="30"></textarea>
+    <p class="alert alert-info">المحتوى</p>
+    
+    <textarea name="book_description" style="width: 90%; margin: 0 auto;"  dir="rtl" class="form-control" rows="20" cols="30"></textarea>
+    <button class="btn btn-primary btn-lg" type="submit">حفظ</button>
   </div>
-  <button type="submit">حفظ</button>
 </form>
+</div>
 {{-- <button type="button" class="btn btn-primary" name="button">create book</button> --}}
 
 <script>
@@ -112,8 +85,7 @@
 
 @endsection
 
-
-<?php
+{{-- 
 // include 'appbar.php';
 // include 'close.php';
 // require_once('conn.php');  
@@ -146,6 +118,5 @@
 //      }
 // }catch(PDOException $e){
 //      $message = "فشل الاتصال بقاعدة البيانات";
-// }
+// } --}}
 
-?>

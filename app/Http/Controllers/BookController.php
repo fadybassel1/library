@@ -86,11 +86,11 @@ class BookController extends Controller
   public function bookSearch(Request $request)
   {
     $searching = $request['qq'];
+
     if ($request['search'] == "position")
       $searching = 'ر' . $request['qq'] . '-';
 
-    $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->get();
-    $count = Book::Where($request['search'], 'like', '%' . $searching . '%')->count();
-    return view('book.allbooks', compact('books', 'count'));
+    $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
+    return view('book.allbooks', ['books'=>$books]);
   }
 }
