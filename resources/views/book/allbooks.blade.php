@@ -44,14 +44,12 @@
 
 @if ($books ?? '' != NULL)
 <div style="text-align: center" class="alert alert-info">found total of {{  $books->total() }} results</div>
-<ul class="list-group list-group-flush">
+<ul class="list-group list-group-flush text-right">
     @foreach ($books as $book)
     <li class="list-group-item">
-
-        <h5><a style="" href="results.php?id={{ $book['id']  }}">{{ $book['book_name'] }}</a>
+        <h5><a href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
             @if($book['book_access']==0)<span class="dot"></span>@endif
         </h5>
-        <a href="{{ route('books.edit', $book) }}">edit</a>
         <p>{{ $book['book_description'] }}</p>
 
     </li>
@@ -59,6 +57,7 @@
 </ul>
 <div style="direction: RTL">
     {{$books->appends(Request::all())->links()}}
-    @endif
 </div>
+@endif
+
 @endsection
