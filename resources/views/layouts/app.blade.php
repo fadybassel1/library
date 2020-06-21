@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +38,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
@@ -44,7 +46,9 @@
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -58,54 +62,64 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
                         @else
 
-                          <li class="nav-item">
-                              <a class="nav-link" href="{{ route('home') }}">{{ __('الكتب') }}</a>
-                          </li>
-                          <li class="nav-item dropdown">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('books.index') }}"></a>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">الاعضاء</a>
+                                aria-haspopup="true" aria-expanded="false">{{ __('الكتب') }}</a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('readers.index')}}">جميع الاعضاء</a>
-                            <a class="dropdown-item" href="{{route('readers.takepicture')}}">استخراج كارت</a>
-                            <a class="dropdown-item" href="{{route('readers.create')}}">تسجيل عضو</a>
+                                <a class="dropdown-item" href="{{route('books.index')}}">بحث</a>
+                                <a class="dropdown-item" href="{{route('books.create')}}">اضافة كتاب</a>
                             </div>
-                          </li>
-                              
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">الاعضاء</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('readers.index')}}">جميع الاعضاء</a>
+                                <a class="dropdown-item" href="{{route('readers.takepicture')}}">استخراج كارت</a>
+                                <a class="dropdown-item" href="{{route('readers.create')}}">تسجيل عضو</a>
+                            </div>
+                        </li>
 
-                               <li class="nav-item">
-                                <a class="nav-link" href="{{route('attendance')}}">{{ __('تسجيل') }}</a>
-                                </li>
-                               <li class="nav-item">
 
-                                   <a class="nav-link" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();" href="{{ route('logout') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                       {{ __('logout') }} <span class="caret"></span>
-                                   </a>
-                                  </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('attendance')}}">{{ __('تسجيل') }}</a>
+                        </li>
+                        <li class="nav-item">
 
+                            <a class="nav-link" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();"
+                                href="{{ route('logout') }}" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" v-pre>
+                                {{ __('logout') }} <span class="caret"></span>
+                            </a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
+    </div>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <main class="py-4">
+        @yield('content')
+    </main>
     </div>
 </body>
+
 </html>

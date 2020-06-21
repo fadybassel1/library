@@ -109,7 +109,7 @@ class ReaderController extends Controller
     return view('reader.edit', compact('reader'));
   }
 
- 
+
   /**
    * Remove the specified resource from storage.
    *
@@ -120,24 +120,24 @@ class ReaderController extends Controller
   {
   }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reader $reader)
-    {
-       
-      
-      $reader->update($request->all());
-       
-       
-       
-       
-       return redirect()->route('readers.show',$reader)->with('status','تم تعديل البيانات بنجاح');
-    }
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, Reader $reader)
+  {
+
+
+    $reader->update($request->all());
+
+
+
+
+    return redirect()->route('readers.show', $reader)->with('status', 'تم تعديل البيانات بنجاح');
+  }
 
   public function attend(Request $request)
   {

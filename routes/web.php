@@ -28,6 +28,8 @@ Route::get('/create', 'BookController@create');
 
 
 Route::resource('readers', 'ReaderController');
+Route::resource('books', 'BookController');
+Route::get('bookSearch', 'BookController@bookSearch');
 
 
 Route::get('/takepicture', function () {
