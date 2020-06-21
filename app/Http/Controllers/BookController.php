@@ -24,8 +24,10 @@ class BookController extends Controller
 
 
 
-  public function show($keyword)
+  public function show($bookid)
   {
+    $book = Book::findOrFail($bookid);
+    return view('book.show', compact('book'));
   }
 
   /**
@@ -59,6 +61,7 @@ class BookController extends Controller
    */
   public function edit(Book $book)
   {
+    return view('book.edit', compact('book'));
   }
 
 
@@ -81,6 +84,9 @@ class BookController extends Controller
    */
   public function update(Request $request, Book $book)
   {
+    // dd($request);
+    $book->update($request->all());
+    return redirect()->route('books.show', $book)->with('status', 'تم تعديل بيانات الكتاب بنجاح');
   }
 
   public function bookSearch(Request $request)
@@ -91,6 +97,6 @@ class BookController extends Controller
       $searching = 'ر' . $request['qq'] . '-';
 
     $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
-    return view('book.allbooks', ['books'=>$books]);
+    return view('book.allbooks', ['books' => $books]);
   }
 }

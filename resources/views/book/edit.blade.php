@@ -32,36 +32,39 @@
 </div>
 @endif
 <div style="text-align: center">
-  <form action="{{ route('books.store') }}" method="post">
+  <form action="{{ route('books.update', $book) }}" method="POST">
     @csrf
+    @method('put')
     <div class="address">
 
       <p class="alert alert-info">اسم الكتاب</p>
-      <input name="book_name" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
+      <input name="book_name" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required"
+        value="{{ $book->book_name }}">
       <br>
       <p class="alert alert-info">ترقيم المكتبة</p>
       <input name="book_position" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+        required="required" value="{{ $book->book_position }}">
       <br>
       <p class="alert alert-info">اسم الكاتب</p>
-      <input name="book_author" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+      <input name="book_author" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required"
+        value="{{ $book->book_author }}">
       <br>
       <p class="alert alert-info">اسم الجزء/رقم السلسلة</p>
       <input name="book_seriesno" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+        required="required" value="{{ $book->book_seriesno }}">
       <br>
       <p class="alert alert-info">اسم السلسة</p>
       <input name="book_seriesname" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+        required="required" value="{{ $book->book_seriesname }}">
       <br>
       <p class="alert alert-info">اسم الناشر</p>
       <input name="book_publisher" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+        required="required" value="{{ $book->book_publisher }}">
       <br>
       <p class="alert alert-info">يسمح بالقراءة</p>
       <div style="text-align: center" class="custom-control custom-switch">
-        <input type="checkbox" name="book_access" value="1" checked class="custom-control-input" id="customSwitches">
+        <input type="checkbox" name="book_access" value="1" {{ $book->book_access == 1 ? 'checked' : "" }}
+          class="custom-control-input" id="customSwitches">
         <label class="custom-control-label" for="customSwitches">يسمح بالقراءة</label>
       </div>
     </div>
@@ -69,12 +72,16 @@
       <p class="alert alert-info">المحتوى</p>
 
       <textarea name="book_description" style="width: 90%; margin: 0 auto;" dir="rtl" class="form-control" rows="30"
-        cols="30"></textarea>
-      <button class="btn btn-primary btn-lg" type="submit">حفظ</button>
+        cols="30">{{ $book->book_description }}</textarea>
+      <button class="btn btn-primary btn-lg" type="submit">تعديل</button>
     </div>
   </form>
 </div>
 {{-- <button type="button" class="btn btn-primary" name="button">create book</button> --}}
+
+<script>
+  document.getElementById("addbook").className="active";
+</script>
 
 @endsection
 
