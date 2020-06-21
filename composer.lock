@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06da6ec52c94019f4edfbbaf2fd318c5",
+    "content-hash": "76492ceaf7159710353dced98d052ce7",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -423,6 +423,48 @@
             "description": "Highlight PHP code in terminal",
             "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "johntaa/ar-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Johntaa/ar-php.git",
+                "reference": "733050aa23f5c1e93bcb274c6d088f8cfa0ec4aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Johntaa/ar-php/zipball/733050aa23f5c1e93bcb274c6d088f8cfa0ec4aa",
+                "reference": "733050aa23f5c1e93bcb274c6d088f8cfa0ec4aa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Johntaa\\Arabic\\": "src/Arabic"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Khaled Al-Sham'aa",
+                    "email": "khaled@ar-php.org",
+                    "homepage": "http://www.ar-php.org/"
+                },
+                {
+                    "name": ":johntaa",
+                    "email": "fccffccffccf@yahoo.com"
+                }
+            ],
+            "description": "contribution to Ar-PHP Library, namespace-psr4 added",
+            "homepage": "https://github.com/Johntaa/ar-php",
+            "time": "2018-01-27T02:25:01+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2048,6 +2090,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-23T09:11:46+00:00"
         },
         {
@@ -5040,11 +5096,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "johntaa/ar-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

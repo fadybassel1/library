@@ -243,9 +243,20 @@
     }
 </style>
 <div class="container">
-    <form id="contact" action="#">
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger" role="alert">{{$error}}</div>
+    @endforeach
+    @endif
+    @if(Session::has('created'))
+    <br>
+    <div class="container alert alert-success" role="alert">
+        {{ Session::get('created') }}
+    </div>
+    @endif
+    <form id="contact" action="{{ route('readers.store') }}" method="POST">
+        @csrf
         <div>
-
             <!-- Section 1 البيانات الشخصية + بيانات تملاء بواسطة المكتبة -->
             <h3>البيانات الشخصية</h3>
             <section>
@@ -261,8 +272,8 @@
                 <input id="name" name="name" type="text" class="form-control required">
                 <label for="phone">المحمول</label>
                 <input id="phone" name="phone" type="number" class="form-control">
-                <label for="mail">البريد الالكتروني</label>
-                <input id="mail" name="mail" type="email" class="form-control email">
+                <label for="email">البريد الالكتروني</label>
+                <input id="email" name="email" type="email" class="form-control email">
                 <label for="bdate">تاريخ الميلاد</label>
                 <input id="bdate" name="bdate" type="date" class="form-control required" value="2010-01-01">
             </section>
@@ -291,67 +302,67 @@
             <h3>الكنيسة / الخدمة</h3>
             <section>
                 <div>
-                <p>(*) يجب ان تملاء هذه الحقول</p>
-                <label for="church">اسم الكنيسة</label>
-                <input id="church" name="church" type="text" class="form-control">
-                <label for="churchlocation">المنطقة</label>
-                <input id="churchlocation" name="churchlocation" type="text" class="form-control">
-                <label for="churchcity">المحافظة</label>
-                <input id="churchcity" name="churchcity" type="text" class="form-control">
-                <label for="churchcountry">البلد</label>
-                <input id="churchcountry" name="churchcountry" type="text" class="form-control">
-                <br>
-                <div class="form-check">
-                    <input value="0" id="s" name="type" type="radio" class="form-check-input"
-                        onclick="javascript:check();" checked>
-                    <label class="form-check-label" for="s">طالب</label>
-                </div>
-                <div class="form-check">
-                    <input value="1" id="g" name="type" type="radio" class="form-check-input"
-                        onclick="javascript:check();">
-                    <label class="form-check-label" for="g">خريج</label>
-                </div>
+                    <p>(*) يجب ان تملاء هذه الحقول</p>
+                    <label for="church">اسم الكنيسة</label>
+                    <input id="church" name="church" type="text" class="form-control">
+                    <label for="churchlocation">المنطقة</label>
+                    <input id="churchlocation" name="churchlocation" type="text" class="form-control">
+                    <label for="churchcity">المحافظة</label>
+                    <input id="churchcity" name="churchcity" type="text" class="form-control">
+                    <label for="churchcountry">البلد</label>
+                    <input id="churchcountry" name="churchcountry" type="text" class="form-control">
+                    <br>
+                    <div class="form-check">
+                        <input value="0" id="s" name="type" type="radio" class="form-check-input"
+                            onclick="javascript:check();" checked>
+                        <label class="form-check-label" for="s">طالب</label>
+                    </div>
+                    <div class="form-check">
+                        <input value="1" id="g" name="type" type="radio" class="form-check-input"
+                            onclick="javascript:check();">
+                        <label class="form-check-label" for="g">خريج</label>
+                    </div>
 
 
-                <!-- STUDENT -->
-                <div id="student" style="display: block">
-                    <label>السنة الدراسية</label>
-                    <input type="text" name="yearofstudy" class="form-control" />
-                    <label>اسم المدرسة / الجامعة</label>
-                    <input type="text" name="schoolname" class="form-control" />
-                </div>
+                    <!-- STUDENT -->
+                    <div id="student" style="display: block">
+                        <label>السنة الدراسية</label>
+                        <input type="text" name="yearofstudy" class="form-control" />
+                        <label>اسم المدرسة / الجامعة</label>
+                        <input type="text" name="schoolname" class="form-control" />
+                    </div>
 
-                <!-- GRAD -->
-                <div id="grad" style="display: none">
-                    <label>المؤهل</label>
-                    <input type="text" name="degree" class="form-control" />
-                    <label>الوظيفة</label>
-                    <input type="text" name="job" class="form-control" />
-                    <label>جهة العمل</label>
-                    <input type="text" name="company" class="form-control" />
-                </div>
+                    <!-- GRAD -->
+                    <div id="grad" style="display: none">
+                        <label>المؤهل</label>
+                        <input type="text" name="degree" class="form-control" />
+                        <label>الوظيفة</label>
+                        <input type="text" name="job" class="form-control" />
+                        <label>جهة العمل</label>
+                        <input type="text" name="company" class="form-control" />
+                    </div>
 
-                <br>
-                <label>الخدمة</label>
-                <div class="form-check">
-                    <input value="0" id="y" type="radio" name="service" class="form-check-input"
-                        onclick="javascript:checkService();" checked>
-                    <label class="form-check-label" for="y">نعم</label>
-                </div>
-                <div class="form-check">
-                    <input value="1" id="n" type="radio" name="service" class="form-check-input"
-                        onclick="javascript:checkService();">
-                    <label class="form-check-label" for="n">لا</label>
-                </div>
+                    <br>
+                    <label>الخدمة</label>
+                    <div class="form-check">
+                        <input value="0" id="y" type="radio" name="service" class="form-check-input"
+                            onclick="javascript:checkService();" checked>
+                        <label class="form-check-label" for="y">نعم</label>
+                    </div>
+                    <div class="form-check">
+                        <input value="1" id="n" type="radio" name="service" class="form-check-input"
+                            onclick="javascript:checkService();">
+                        <label class="form-check-label" for="n">لا</label>
+                    </div>
 
-                <!-- SERVICE -->
-                <div id="service" style="display: block">
-                    <label>ما هي الخدمة</label>
-                    <input type="text" name="servicename" class="form-control" />
-                    <label>الكنيسة</label>
-                    <input type="text" name="servicechurch" class="form-control" />
-                </div>
-                
+                    <!-- SERVICE -->
+                    <div id="service" style="display: block">
+                        <label>ما هي الخدمة</label>
+                        <input type="text" name="servicename" class="form-control" />
+                        <label>الكنيسة</label>
+                        <input type="text" name="servicechurch" class="form-control" />
+                    </div>
+
             </section>
         </div>
     </form>
@@ -416,6 +427,7 @@
         onFinished: function (event, currentIndex)
         {
             alert("Submitted!");
+            form.submit();
         },
         onInit: function (event, current) {
             $('.actions > ul > li:first-child').attr('style', 'display:none');
