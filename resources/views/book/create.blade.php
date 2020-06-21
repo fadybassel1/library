@@ -6,14 +6,8 @@
     width: 45%;
     float: left;
     box-shadow: 0 10px 20px #9FB2C1, 0 6px 6px #9FB2C1;
-    margin-top: 25px;
-    margin-left: 20px;
+    margin-left: 75px;
     padding-bottom: 15px;
-  }
-
-  body {
-    font-family: sans-serif;
-    color: #3c3939;
   }
 
   .address:hover {
@@ -24,7 +18,6 @@
     width: 45%;
     float: left;
     box-shadow: 0 10px 20px #9FB2C1, 0 6px 6px #9FB2C1;
-    margin-top: 25px;
     margin-left: 50px;
     padding-bottom: 15px;
   }
@@ -32,50 +25,54 @@
   .infoo:hover {
     box-shadow: 0 19px 38px #9FB2C1, 0 15px 12px #2CD2EC;
   }
-
 </style>
 @if(Session::has('created'))
-<br>
 <div class="container alert alert-success" role="alert">
   {{ Session::get('created') }}
 </div>
 @endif
 <div style="text-align: center">
-<form action="{{ route('books.store') }}" method="post">
-  @csrf
-  <div class="address">
+  <form action="{{ route('books.store') }}" method="post">
+    @csrf
+    <div class="address">
 
-    <p class="alert alert-info">اسم الكتاب</p>
-    <input name="book_name" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
-    
-    <p class="alert alert-info">ترقيم المكتبة</p>
-    <input name="book_position" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
+      <p class="alert alert-info">اسم الكتاب</p>
+      <input name="book_name" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
+      <br>
+      <p class="alert alert-info">ترقيم المكتبة</p>
+      <input name="book_position" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required">
+      <br>
+      <p class="alert alert-info">اسم الكاتب</p>
+      <input name="book_author" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required">
+      <br>
+      <p class="alert alert-info">اسم الجزء/رقم السلسلة</p>
+      <input name="book_seriesno" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required">
+      <br>
+      <p class="alert alert-info">اسم السلسة</p>
+      <input name="book_seriesname" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required">
+      <br>
+      <p class="alert alert-info">اسم الناشر</p>
+      <input name="book_publisher" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required">
+      <br>
+      <p class="alert alert-info">يسمح بالقراءة</p>
+      <div style="text-align: center" class="custom-control custom-switch">
+        <input type="checkbox" name="book_access" value="1" checked class="custom-control-input" id="customSwitches">
+        <label class="custom-control-label" for="customSwitches">يسمح بالقراءة</label>
+      </div>
+    </div>
+    <div class="infoo">
+      <p class="alert alert-info">المحتوى</p>
 
-    <p class="alert alert-info">اسم الكاتب</p>
-    <input name="book_author" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
-
-    <p class="alert alert-info">اسم الجزء/رقم السلسلة</p>
-    <input name="book_seriesno" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
-
-    <p class="alert alert-info">اسم السلسة</p>
-    <input name="book_seriesname" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
-
-    <p class="alert alert-info">اسم الناشر</p>
-    <input name="book_publisher" style="width: 90%; margin: 0 auto;" class="form-control text-center" required="required">
-
-    <p class="alert alert-info">يسمح بالقراءة</p>
-   <div style="text-align: center" class="custom-control custom-switch">
-     <input type="checkbox" name="book_access" value="1" checked class="custom-control-input" id="customSwitches">
-     <label class="custom-control-label" for="customSwitches">يسمح بالقراءة</label>
-</div>
-  </div>
-  <div class="infoo">
-    <p class="alert alert-info">المحتوى</p>
-    
-    <textarea name="book_description" style="width: 90%; margin: 0 auto;"  dir="rtl" class="form-control" rows="20" cols="30"></textarea>
-    <button class="btn btn-primary btn-lg" type="submit">حفظ</button>
-  </div>
-</form>
+      <textarea name="book_description" style="width: 90%; margin: 0 auto;" dir="rtl" class="form-control" rows="30"
+        cols="30"></textarea>
+      <button class="btn btn-primary btn-lg" type="submit">حفظ</button>
+    </div>
+  </form>
 </div>
 {{-- <button type="button" class="btn btn-primary" name="button">create book</button> --}}
 
@@ -119,4 +116,3 @@
 // }catch(PDOException $e){
 //      $message = "فشل الاتصال بقاعدة البيانات";
 // } --}}
-
