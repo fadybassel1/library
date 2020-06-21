@@ -7,31 +7,38 @@
 <body class="clickup-chrome-ext_installed">
 
     @php
-     if($reader->service==0)
-     $row="col-xl-4 col-lg-6";
-     else 
-     $row="col-xl-3 col-lg-6"   
+    if($reader->service==0)
+    $row="col-xl-4 col-lg-6";
+    else
+    $row="col-xl-3 col-lg-6"
     @endphp
     <div class="main-content">
         <!-- Top navbar -->
         <nav class="navbar" id="navbar-main">
             <div class="container-fluid">
                 <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="{{  asset('avatar.jpeg')   }}">
+
+                    @if($reader->photo ?? False)
+                    @php($image=$reader->photo->filename)
+                    <img  width="250" src="{{asset("member photos/$image")}}">
+                 @else 
+                    <img  width="250" src="{{asset('avatar.jpg')}}" alt="Card image cap">
+                    @endif
                 </span>
                 <p class="card-text"> {{$reader->name ?? "unknown" }} <span style="color:green"> :الاسم </span></p>
                 <p class="card-text">{{$reader->email ?? "unknown" }}</p>
                 <p class="card-text">{{$reader->formno ?? "unknown"}}<span style="color:green"> :رقم الاستمارة </span>
                 </p>
                 <p class="card-text">{{$reader->phone ?? "unknown"}}<span style="color:green"> :رقم التليفون </span></p>
-                <p class="card-text">{{$reader->bdate ?? "unknown"}}<span style="color:green"> :تاريخ الميلاد </span></p>
+                <p class="card-text">{{$reader->bdate ?? "unknown"}}<span style="color:green"> :تاريخ الميلاد </span>
+                </p>
             </div>
         </nav>
         <div class="header bg-gradient-primary pb-3 pt-2 pt-md-5">
             <div class="container-fluid">
                 @if (session('status'))
                 <div style="text-align: center" class="alert alert-success" role="alert">
-                <strong>{{session('status')}}</strong>
+                    <strong>{{session('status')}}</strong>
                 </div>
                 @endif
                 <div style="text-align: center" class="alert alert-info" role="alert">
@@ -49,13 +56,13 @@
                                         </div>
                                     </div>
                                     <div style="text-align: center">
-                                        <p  class="alert alert-info">اسم الكنيسة</p>
+                                        <p class="alert alert-info">اسم الكنيسة</p>
                                         <p class="card-text">{{$reader->church ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">المنطقة</p>
+                                        <p class="alert alert-info">المنطقة</p>
                                         <p class="card-text">{{$reader->churchlocation ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">البلد</p>
+                                        <p class="alert alert-info">البلد</p>
                                         <p class="card-text">{{$reader->churchcountry ?? "unknown"}}</p>
-                                        <p  class="alert alert-info">المدينة</p>
+                                        <p class="alert alert-info">المدينة</p>
                                         <p class="card-text">{{$reader->churchcity ?? "unknown"}}</p>
                                     </div>
                                 </div>
@@ -76,16 +83,18 @@
                                         </div>
                                     </div>
                                     <div style="text-align: center">
-                                        <p  class="alert alert-info">البلد</p>
+                                        <p class="alert alert-info">البلد</p>
                                         <p class="card-text">{{$reader->country ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">المحافظة</p>
+                                        <p class="alert alert-info">المحافظة</p>
                                         <p class="card-text">{{$reader->city ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">المنطقة</p>
+                                        <p class="alert alert-info">المنطقة</p>
                                         <p class="card-text">{{$reader->reigon ?? "unknown"}}</p>
-                                        <p  class="alert alert-info">اسم الشارع</p>
+                                        <p class="alert alert-info">اسم الشارع</p>
                                         <p class="card-text">{{$reader->streetname ?? "unknown"}}</p>
-                                        <p  class="alert alert-info">العمارة | الدور | الشقة</p>
-                                        <p class="card-text">{{$reader->appno ?? "unknown"}} | {{$reader->floorno ?? "unknown"}} | {{$reader->buildingno ?? "unknown"}} </p>
+                                        <p class="alert alert-info">العمارة | الدور | الشقة</p>
+                                        <p class="card-text">{{$reader->appno ?? "unknown"}} |
+                                            {{$reader->floorno ?? "unknown"}} | {{$reader->buildingno ?? "unknown"}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -101,9 +110,9 @@
                                         </div>
                                     </div>
                                     <div style="text-align: center">
-                                        <p  class="alert alert-info">سنة الدراسة</p>
+                                        <p class="alert alert-info">سنة الدراسة</p>
                                         <p class="card-text">{{$reader->yearofstudy ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">المدرسة</p>
+                                        <p class="alert alert-info">المدرسة</p>
                                         <p class="card-text">{{$reader->schoolname ?? "unknown" }}</p>
                                     </div>
                                 </div>
@@ -119,11 +128,11 @@
                                         </div>
                                     </div>
                                     <div style="text-align: center">
-                                        <p  class="alert alert-info">المؤهل</p>
+                                        <p class="alert alert-info">المؤهل</p>
                                         <p class="card-text">{{$reader->degree ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">الوظيفة</p>
+                                        <p class="alert alert-info">الوظيفة</p>
                                         <p class="card-text">{{$reader->job ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">الشركة</p>
+                                        <p class="alert alert-info">الشركة</p>
                                         <p class="card-text">{{$reader->company ?? "unknown" }}</p>
                                     </div>
                                 </div>
@@ -144,24 +153,24 @@
                                         </div>
                                     </div>
                                     <div style="text-align: center">
-                                        <p  class="alert alert-info">ما هى الخدمة؟</p>
+                                        <p class="alert alert-info">ما هى الخدمة؟</p>
                                         <p class="card-text">{{$reader->servicename ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">الكنيسة</p>
+                                        <p class="alert alert-info">الكنيسة</p>
                                         <p class="card-text">{{$reader->servicechurch ?? "unknown" }}</p>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-    
+
                         @endif
-                        
 
-                
 
-                      
-                       
-                     
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -173,7 +182,8 @@
                         <div class="card-header border-0">
                             <div class="row align-items-center">
                                 <div class="text-center">
-                                    <a href="{{route('readers.edit',$reader)}}" class="btn btn-md btn-primary"> تعديل</a>
+                                    <a href="{{route('readers.edit',$reader)}}" class="btn btn-md btn-primary">
+                                        تعديل</a>
                                 </div>
                             </div>
                         </div>

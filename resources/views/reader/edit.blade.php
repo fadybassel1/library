@@ -28,7 +28,7 @@
 
 
                     <label for="mail">email:</label><input id="mail" style="width: 20%"
-                        value="{{$reader->email ?? "unknown" }}" name="email" type="email"
+                        value="{{$reader->email ?? "unknown" }}" name="email" 
                         class="form-control @error('mail') is-invalid @enderror">
 
 
@@ -162,9 +162,9 @@
 
 
                                             <p class="alert alert-info">المنطقة</p>
-                                            <input id="reigon" name="reigon" value="{{$reader->reigon ?? "unknown"}}"
-                                                type="text" class="form-control @error('reigon') is-invalid @enderror">
-                                            @error('reigon')
+                                            <input id="region" name="region" value="{{$reader->region ?? "unknown"}}"
+                                                type="text" class="form-control @error('region') is-invalid @enderror">
+                                            @error('region')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
 
