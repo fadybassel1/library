@@ -82,7 +82,8 @@ public function show($readerid){
      */
     public function update(Request $request, Reader $reader)
     {
-       
+       $reader->update($request->all());
+       return redirect()->route('readers.show',$reader)->with('status','تم تعديل البيانات بنجاح');
     }
 
     /**

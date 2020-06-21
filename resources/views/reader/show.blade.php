@@ -47,11 +47,11 @@
                                         <p  class="alert alert-info">اسم الكنيسة</p>
                                         <p class="card-text">{{$reader->church ?? "unknown" }}</p>
                                         <p  class="alert alert-info">المنطقة</p>
-                                        <p class="card-text">{{$reader->readers_churchlocation ?? "unknown" }}</p>
+                                        <p class="card-text">{{$reader->churchlocation ?? "unknown" }}</p>
                                         <p  class="alert alert-info">البلد</p>
-                                        <p class="card-text">{{$reader->readers_churchcountry ?? "unknown"}}</p>
+                                        <p class="card-text">{{$reader->churchcountry ?? "unknown"}}</p>
                                         <p  class="alert alert-info">المدينة</p>
-                                        <p class="card-text">{{$reader->readers_churchcity ?? "unknown"}}</p>
+                                        <p class="card-text">{{$reader->churchcity ?? "unknown"}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -139,16 +139,11 @@
                                         </div>
                                     </div>
                                     <div style="text-align: center">
-                                        <p  class="alert alert-info">البلد</p>
-                                        <p class="card-text">{{$reader->country ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">المحافظة</p>
-                                        <p class="card-text">{{$reader->city ?? "unknown" }}</p>
-                                        <p  class="alert alert-info">المنطقة</p>
-                                        <p class="card-text">{{$reader->reigon ?? "unknown"}}</p>
-                                        <p  class="alert alert-info">اسم الشارع</p>
-                                        <p class="card-text">{{$reader->streetname ?? "unknown"}}</p>
-                                        <p  class="alert alert-info">العمارة | الدور | الشقة</p>
-                                        <p class="card-text">{{$reader->appno ?? "unknown"}} | {{$reader->floorno ?? "unknown"}} | {{$reader->buildingno ?? "unknown"}} </p>
+                                        <p  class="alert alert-info">ما هى الخدمة؟</p>
+                                        <p class="card-text">{{$reader->servicename ?? "unknown" }}</p>
+                                        <p  class="alert alert-info">الكنيسة</p>
+                                        <p class="card-text">{{$reader->servicechurch ?? "unknown" }}</p>
+                                        
                                     </div>
                                 </div>
                             </div>
