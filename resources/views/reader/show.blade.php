@@ -29,6 +29,11 @@
         </nav>
         <div class="header bg-gradient-primary pb-3 pt-2 pt-md-5">
             <div class="container-fluid">
+                @if (session('status'))
+                <div style="text-align: center" class="alert alert-success" role="alert">
+                <strong>{{session('status')}}</strong>
+                </div>
+                @endif
                 <div style="text-align: center" class="alert alert-info" role="alert">
                     <strong>البيانات</strong>
                 </div>
