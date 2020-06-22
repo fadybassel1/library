@@ -69,25 +69,19 @@ $days[4] = $day['COUNT(*)'];
                     <div class="card-body">
 
                         <!-- List group links -->
-                        <div class="list-group list-group-flush">
-                            <a class="list-group-item list-group-item-action waves-effect">Sales
-                                <span class="badge badge-success badge-pill pull-right">22%
-                                    <i class="fas fa-arrow-up ml-1"></i>
-                                </span>
+                        <div class="list-group list-group-flush text-right" style="font-size:18px;" dir="rtl">
+                            <a class="list-group-item list-group-item-action waves-effect">عدد الحضور اخر 7
+                                ايام
+                                <span class="badge badge-dark badge-pill pull-right">{{ $last7daysCount }}</span>
                             </a>
-                            <a class="list-group-item list-group-item-action waves-effect">Traffic
-                                <span class="badge badge-danger badge-pill pull-right">5%
-                                    <i class="fas fa-arrow-down ml-1"></i>
-                                </span>
+                            <a class="list-group-item list-group-item-action waves-effect">عدد الحضور اليوم
+                                <span class="badge badge-dark badge-pill pull-right">{{ $days[0] }}</span>
                             </a>
-                            <a class="list-group-item list-group-item-action waves-effect">Orders
-                                <span class="badge badge-primary badge-pill pull-right">14</span>
+                            <a class="list-group-item list-group-item-action waves-effect">عدد الاعضاء
+                                <span class="badge badge-dark badge-pill pull-right ">{{ $readersCount }}</span>
                             </a>
-                            <a class="list-group-item list-group-item-action waves-effect">Issues
-                                <span class="badge badge-primary badge-pill pull-right">123</span>
-                            </a>
-                            <a class="list-group-item list-group-item-action waves-effect">Messages
-                                <span class="badge badge-primary badge-pill pull-right">8</span>
+                            <a class="list-group-item list-group-item-action waves-effect">عدد الكتب
+                                <span class="badge badge-dark badge-pill pull-right">{{ $booksCount }}</span>
                             </a>
                         </div>
                         <!-- List group links -->
@@ -104,7 +98,7 @@ $days[4] = $day['COUNT(*)'];
                     <div class="card-body">
                         <h4 class="text-center">الحاضرين اليوم</h4>
                         <!-- Table  -->
-                        <table class="table table-hover">
+                        <table id="DBTable" class="table table-hover">
                             <!-- Table head -->
                             <thead class="blue-grey lighten-4">
                                 <tr>
@@ -254,14 +248,16 @@ $days[4] = $day['COUNT(*)'];
 </main>
 <!--Main layout-->
 
-<!-- Initializations -->
+{{-- <!-- Initializations -->
 <script type="text/javascript">
     // Animations initialization
     new WOW().init();
-</script>
+</script> --}}
 
 <!-- Charts -->
 <script>
+    $('#DBTable').DataTable();
+
     // Line
     var ctx = document.getElementById("attendenceChart").getContext('2d');
     var myChart = new Chart(ctx, {
