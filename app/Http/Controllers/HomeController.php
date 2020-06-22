@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
 use App\Reader;
 use App\Visit;
 use Session;
@@ -30,7 +31,9 @@ class HomeController extends Controller
         // Session::flash('status','hiiii');
         $daysCount = Visit::select(DB::raw('COUNT(*)'), 'day')->Where('day', '>', DB::raw("Date(NOW()) - INTERVAL 5 DAY"))->groupby('day')->get();
         $todayUsers = Reader::select('name')->join('visits', 'readers.id', '=', 'visits.reader_id')->where('visits.day', date('Y-m-d'))->get();
-
-        return view('home', compact('daysCount', 'todayUsers'));
+        $last7daysCount = Visit::Where('day', '>', DB::raw("Date(NOW()) - INTERVAL 7 DAY"))->count();
+        $booksCount = Book::all()->count();
+        $readersCount = Reader::all()->count();
+        return view('home', compact('daysCount', 'todayUsers', 'last7daysCount', 'booksCount', 'readersCount'));
     }
 }

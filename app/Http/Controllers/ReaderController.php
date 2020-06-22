@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Johntaa\Arabic\Arabic\I18N_Arabic_Soundex;
 use Illuminate\Support\Facades\Storage;
+
 class ReaderController extends Controller
 {
   public function __construct()
@@ -120,6 +121,8 @@ class ReaderController extends Controller
    */
   public function destroy(Reader $reader)
   {
+    $reader->delete();
+    return back()->with('status', 'تم حذف العضو');
   }
 
   /**
@@ -158,101 +161,95 @@ class ReaderController extends Controller
     }
   }
 
-  public function storeimage(Request $request){
-    
+  public function storeimage(Request $request)
+  {
+
     $request->validate([
       'formno' => 'required | numeric | digits_between:1,8',
-      'filee'=>'mimes:jpg,jpeg,png|max:4000'
+      'filee' => 'mimes:jpg,jpeg,png|max:4000'
     ]);
 
-    if ($request->file('filee') && $request->image != null){
-      
-      return redirect()->back()->with('error', 'لا يمكن تحميل صورتين');   
-    
+    if ($request->file('filee') && $request->image != null) {
+
+      return redirect()->back()->with('error', 'لا يمكن تحميل صورتين');
     }
 
 
-    if ( !$request->file('filee') && $request->image == null){
-      
-      return redirect()->back()->with('error', 'من فضلك اختر صورة');   
-    
+    if (!$request->file('filee') && $request->image == null) {
+
+      return redirect()->back()->with('error', 'من فضلك اختر صورة');
     }
 
 
-    try{
+    try {
 
-      $reader=Reader::where('formno', $request->formno)->firstOrFail();
-      $id=$reader->id;
-    }
-    catch (ModelNotFoundException $e) {
+      $reader = Reader::where('formno', $request->formno)->firstOrFail();
+      $id = $reader->id;
+    } catch (ModelNotFoundException $e) {
       return redirect()->back()->with('error', ' رقم الاستمارة غير صحيح');
     }
-    $img=$request['image'];
-    
-    if( $img !=null){
-      
-      if(strpos($img,"data:image/jpeg;base64,")===false){
-        
-        return redirect()->back()->with('error', 'الملف لم يكن صورة');   
+    $img = $request['image'];
+
+    if ($img != null) {
+
+      if (strpos($img, "data:image/jpeg;base64,") === false) {
+
+        return redirect()->back()->with('error', 'الملف لم يكن صورة');
       }
 
-    $image_parts = explode(";base64,", $img);
-    $image_type_aux = explode("image/", $image_parts[0]);
-    $img = imagecreatefromstring(base64_decode($image_parts[1]));
-    if (!$img) {
-      return redirect()->back()->with('error', 'الملف لم يكن صورة');   
-  }
-      
-  
-  if($reader->photo){
-    $photo=$reader->photo;   
-    // remove the old image
-    unlink('member photos/'.$photo->filename);    
-    imagejpeg($img, "member photos/$id.jpeg");
-    $photo->filename=$id.'.jpeg';
-    $photo->save();
-  }
-  else {
-    imagejpeg($img, "member photos/$id.jpeg");
-     Photo::create([
-         'filename'=>$id.'.jpeg',
-         'photoable_id'=>$reader->id,
-         'photoable_type'=>"App\Reader"
-     ]);
-    }
+      $image_parts = explode(";base64,", $img);
+      $image_type_aux = explode("image/", $image_parts[0]);
+      $img = imagecreatefromstring(base64_decode($image_parts[1]));
+      if (!$img) {
+        return redirect()->back()->with('error', 'الملف لم يكن صورة');
+      }
 
+
+      if ($reader->photo) {
+        $photo = $reader->photo;
+        // remove the old image
+        unlink('member photos/' . $photo->filename);
+        imagejpeg($img, "member photos/$id.jpeg");
+        $photo->filename = $id . '.jpeg';
+        $photo->save();
+      } else {
+        imagejpeg($img, "member photos/$id.jpeg");
+        Photo::create([
+          'filename' => $id . '.jpeg',
+          'photoable_id' => $reader->id,
+          'photoable_type' => "App\Reader"
+        ]);
+      }
+    } else {
+      $file = $request->file('filee');
+      $filextention = $file->getClientOriginalExtension();
+      $filename = $reader->id . '.' . $filextention;
+
+      if ($reader->photo) {
+        $photo = $reader->photo;
+        // remove old image.....
+        unlink('member photos/' . $photo->filename);
+        $file->move('member photos', $filename);
+
+        // update photo file name
+        $photo->filename = $filename;
+        $photo->save();
+      } else {
+        $file->move('member photos', $filename);
+        Photo::create([
+          'filename' => $filename,
+          'photoable_id' => $reader->id,
+          'photoable_type' => "App\Reader"
+        ]);
+      }
     }
-    else {
-            $file=$request->file('filee');
-            $filextention=$file->getClientOriginalExtension();
-            $filename= $reader->id.'.'.$filextention;
-            
-            if($reader->photo){
-              $photo=$reader->photo;
-              // remove old image.....
-              unlink('member photos/'.$photo->filename);
-              $file->move('member photos',$filename);
-              
-              // update photo file name
-              $photo->filename=$filename;
-              $photo->save();
-            }else {
-              $file->move('member photos',$filename);
-              Photo::create([
-               'filename'=>$filename,
-               'photoable_id'=>$reader->id,
-               'photoable_type'=>"App\Reader"
-           ]);
-          }
-        
-        
-          }
-          return redirect()->back()->with('status', $reader->id);
+    return redirect()->back()->with('status', $reader->id);
   }
 
-  public function printcard($reader){
-   $reader= Reader::where('id',$reader)->with('photo')->first();
-   $photo=$reader->photo->filename;
-   return view('reader.printcard',compact('reader','photo'));
+  public function printcard($reader)
+  {
+    $reader = Reader::where('id', $reader)->with('photo')->first();
+    $photo = $reader->photo->filename;
+    return view('reader.printcard', compact('reader', 'photo'));
   }
 }
