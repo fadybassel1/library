@@ -18,6 +18,16 @@
 </div> --}}
 <!--Main layout-->
 
+
+<div style="text-align: center; width:40%; margin:0 auto" class="alert alert-info" role="alert">
+    <strong>welcome</strong> {{Auth::user()->username}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+
 @php
 $days = [0, 0, 0, 0, 0];
 
@@ -40,13 +50,17 @@ $days[4] = $day['COUNT(*)'];
 }
 }
 @endphp
+
 <main class="mx-lg-5">
+  
     <div class="container-fluid mt-5">
         <!--Grid row-->
+  
         <div class="row wow fadeIn">
 
             <!--Grid column-->
             {{-- Attendence stat --}}
+            
             <div class="col-md-8 mb-4">
                 <!--Card-->
                 <div class="card">
