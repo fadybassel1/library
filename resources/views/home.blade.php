@@ -17,24 +17,25 @@
 </div>
 </div> --}}
 <!--Main layout-->
+
 @php
 $days = [0, 0, 0, 0, 0];
 
 foreach($daysCount as $day)
 {
-if ($day['entry_date'] === date('Y-m-d')) {
+if ($day['day'] === date('Y-m-d')) {
 $days[0] = $day['COUNT(*)'];
 }
-elseif ($day['entry_date'] === date('Y-m-d',strtotime("-1 days"))) {
+elseif ($day['day'] === date('Y-m-d',strtotime("-1 days"))) {
 $days[1] = $day['COUNT(*)'];
 }
-elseif ($day['entry_date'] === date('Y-m-d',strtotime("-2 days"))) {
+elseif ($day['day'] === date('Y-m-d',strtotime("-2 days"))) {
 $days[2] = $day['COUNT(*)'];
 }
-elseif ($day['entry_date'] === date('Y-m-d',strtotime("-3 days"))) {
+elseif ($day['day'] === date('Y-m-d',strtotime("-3 days"))) {
 $days[3] = $day['COUNT(*)'];
 }
-elseif ($day['entry_date'] === date('Y-m-d',strtotime("-4 days"))) {
+elseif ($day['day'] === date('Y-m-d',strtotime("-4 days"))) {
 $days[4] = $day['COUNT(*)'];
 }
 }
