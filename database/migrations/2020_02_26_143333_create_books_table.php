@@ -28,7 +28,7 @@ class CreateBooksTable extends Migration
             $table->string('book_col11')->nullable();
             $table->integer('book_access')->nullable();
             $table->tinyInteger('book_creator')->nullable();
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

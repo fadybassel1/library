@@ -3,13 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-  protected  $guarded=[];
+  use SoftDeletes;
+  protected  $guarded = [];
 
-  public function photo() {
+  public function photo()
+  {
     return $this->morphOne('App\Photo', 'photoable');
-} 
-
+  }
 }
