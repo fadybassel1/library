@@ -3,9 +3,11 @@
 @section('content')
 
 
-
-
-
+@if(Session::has('status'))
+<div class="container alert alert-success" role="alert">
+    {{ Session::get('status') }}
+</div>
+@endif
 <form action="/bookSearch" method="get">
     @csrf
 

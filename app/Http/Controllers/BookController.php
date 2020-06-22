@@ -71,8 +71,10 @@ class BookController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Book $books)
+  public function destroy(Book $book)
   {
+    $book->delete();
+    return redirect()->route('books.index')->with('status', 'تم حذف الكتاب');
   }
 
   /**
