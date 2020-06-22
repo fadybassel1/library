@@ -93,7 +93,7 @@ class BookController extends Controller
   {
     $searching = $request['qq'];
 
-    if ($request['search'] == "position")
+    if ($request['search'] == "book_position")
       $searching = 'ر' . $request['qq'] . '-';
 
     $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);

@@ -47,8 +47,8 @@
 <ul class="list-group list-group-flush text-right">
     @foreach ($books as $book)
     <li class="list-group-item">
-        <h5><a href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
-            @if($book['book_access']==0)<span class="dot"></span>@endif
+        <h5> @if($book['book_access']==0) <span class="badge badge-danger">Restricted</span>@endif <a href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
+           
         </h5>
         <p>{{ $book['book_description'] }}</p>
 

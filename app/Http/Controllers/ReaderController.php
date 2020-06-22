@@ -187,12 +187,16 @@ class ReaderController extends Controller
       return redirect()->back()->with('error', ' رقم الاستمارة غير صحيح');
     }
     $img=$request['image'];
-
+    
     if( $img !=null){
+      
+      if(strpos($img,"data:image/jpeg;base64,")===false){
+        
+        return redirect()->back()->with('error', 'الملف لم يكن صورة');   
+      }
 
     $image_parts = explode(";base64,", $img);
     $image_type_aux = explode("image/", $image_parts[0]);
-    $image_type = $image_type_aux[1];
     $img = imagecreatefromstring(base64_decode($image_parts[1]));
     if (!$img) {
       return redirect()->back()->with('error', 'الملف لم يكن صورة');   
