@@ -12,10 +12,7 @@
 |
 */
 
-
-
-
-
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,3 +39,6 @@ Route::get('/attendance', function () {
 
 
 Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
+
+Route::post('/storeimage','ReaderController@storeimage')->name('storeimage');
+Route::get('/printcard/{id}','ReaderController@printcard')->name('printcard');
