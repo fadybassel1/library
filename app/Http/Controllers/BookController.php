@@ -11,7 +11,7 @@ class BookController extends Controller
   public function __construct()
   {
 
-    $this->middleware('role:admin')->only('edit','destroy','update','deletedbooks','restoredeleted');
+    $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedbooks', 'restoredeleted');
   }
 
   /* Display a listing of the resource.
@@ -103,13 +103,15 @@ class BookController extends Controller
     return view('book.allbooks', ['books' => $books]);
   }
 
-  public function deletedbooks(){
-    $books= Book::onlyTrashed()->paginate(10);
-    return view('book.showdeleted',compact('books'));
+  public function deletedbooks()
+  {
+    $books = Book::onlyTrashed()->get();
+    return view('book.showdeleted', compact('books'));
   }
 
-  public function restoredeleted($book){
+  public function restoredeleted($book)
+  {
     Book::onlyTrashed()->findOrFail($book)->restore();
-    return redirect()->back()->with('status' ,'تم استرجاع الكتاب');
+    return redirect()->back()->with('status', 'تم استرجاع الكتاب');
   }
 }

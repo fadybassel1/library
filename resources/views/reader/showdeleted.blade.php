@@ -8,31 +8,45 @@
     {{ Session::get('status') }}
 </div>
 @endif
+<!--Card-->
 <div class="card">
-<ul class="list-group list-group-flush text-right">
-    @foreach ($readers as $reader)
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-6">
-                <h5><a
-                        href="">{{ $reader->name }}</a>
-                </h5>
-            </div> 
-             <div class="col">
-                {{ $reader->deleted_at->diffForHumans() }}
-               
-            </div>
-            <div class="col">
-                <a class="btn btn-success" href="{{route('restorereader',$reader)}}">ارجاع</a>
-                </h5>
-            </div>
-        </div>
-    </li>
-    @endforeach
-    
-</ul>
-</div>
-{{$readers->links()}}
+    <!--Card content-->
+    <div class="card-body">
+        <h4 class="text-center">الاعضاء المحذوفين</h4>
+        <!-- Table  -->
+        <table id="DBTable" class="table table-hover">
+            <!-- Table head -->
+            <thead class="blue-grey lighten-4">
+                <tr>
+                    <th>#</th>
+                    <th class="text-center">الاسم</th>
+                    <th class="text-center">تاريخ الحذف</th>
+                    <th class="text-center">اعدادات</th>
+                </tr>
+            </thead>
+            <!-- Table head -->
 
+            <!-- Table body -->
+            <tbody>
+                @foreach ($readers as $i =>$reader)
+                <tr>
+                    <th scope="row">{{ ++$i }}</th>
+                    <td class="text-center"><a href="">{{ $reader->name }}</a></td>
+                    <td class="text-center">{{ $reader->deleted_at->diffForHumans() }}</td>
+                    <td class="text-center"><a class="btn btn-success"
+                            href="{{route('restorereader',$reader)}}">ارجاع</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+            <!-- Table body -->
+        </table>
+        <!-- Table  -->
+    </div>
+</div>
+
+<script>
+    $('#DBTable').DataTable();
+</script>
 
 @endsection
