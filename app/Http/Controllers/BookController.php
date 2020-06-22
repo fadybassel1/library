@@ -10,8 +10,8 @@ class BookController extends Controller
 
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('role:admin')->only('edit','destroy','update');
+
+    $this->middleware('role:admin')->only('edit','destroy','update','deletedbooks','restoredeleted');
   }
 
   /* Display a listing of the resource.
@@ -101,5 +101,15 @@ class BookController extends Controller
 
     $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
     return view('book.allbooks', ['books' => $books]);
+  }
+
+  public function deletedbooks(){
+    $books= Book::onlyTrashed()->paginate(10);
+    return view('book.showdeleted',compact('books'));
+  }
+
+  public function restoredeleted($book){
+    Book::onlyTrashed()->findOrFail($book)->restore();
+    return redirect()->back()->with('status' ,'تم استرجاع الكتاب');
   }
 }

@@ -38,6 +38,12 @@ Route::get('/attendance', function () {
 })->name('attendance');
 
 
+
+Route::get('/deletedreaders', 'ReaderController@deletedreaders')->name('deletedreaders');
+Route::get('/deletedbooks', 'BookController@deletedbooks')->name('deletedbooks');
+Route::get('/restoredeleted/{book}', 'BookController@restoredeleted')->name('restorebook');
+Route::get('/restoredeleted/{reader}', 'ReaderController@restoredeleted')->name('restorereader');
+
 Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
 Route::post('/storeimage','ReaderController@storeimage')->name('storeimage');

@@ -56,6 +56,18 @@ $days[4] = $day['COUNT(*)'];
                     </div>
                 </div>
                 <!--/.Card-->
+                <br>
+                @if (Auth::user()->role=='admin')
+                    
+                <span class="badge badge-danger"><a class="dropdown-toggle mr-2" type="button" data-toggle="dropdown"
+                    aria-haspopup="true"><i class="fas fa-trash fa-2x" aria-hidden="true"> سلة النفايات</i></a>
+                    <div style="color: black" class="dropdown-menu">
+                        <a class="dropdown-item" href="{{route('deletedbooks')}}">الكتب</a>
+                        <a class="dropdown-item" href="{{route('deletedreaders')}}">الاعضاء</a>
+                    </div>
+                </span>
+                @endif
+
             </div>
             <!--Grid column-->
 

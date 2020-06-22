@@ -15,8 +15,8 @@ class ReaderController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('role:admin')->only('edit','destroy','update');
+ 
+    $this->middleware('role:admin')->only('edit','destroy','update','deletedreaders','restoredeleted');
   }
 
 
@@ -252,4 +252,15 @@ class ReaderController extends Controller
     $photo = $reader->photo->filename;
     return view('reader.printcard', compact('reader', 'photo'));
   }
+
+  public function deletedreaders(){
+    $readers= Reader::onlyTrashed()->paginate(10);
+    return view('reader.showdeleted',compact('readers'));
+  }
+
+  public function restoredeleted($reader){
+    Reader::onlyTrashed()->findOrFail($reader)->restore();
+    return redirect()->back()->with('status' ,'تم استرجاع القارىء');
+  }
+
 }

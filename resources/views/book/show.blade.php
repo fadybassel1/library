@@ -46,12 +46,14 @@
 </div>
 @endif
 <div class="text-center">
+    @if (Auth::user()->role=='admin')
     <a href="{{ route('books.edit', $book) }}" class="btn btn-primary">تعديل</a>
     <form class="d-inline" action="{{ route('books.destroy', $book) }}" method="POST">
         @csrf
         @method('DELETE')
         <input onclick="return confirm('تاكيد حذف الكتاب ؟');" class="btn btn-danger" type="submit" value="حذف">
     </form>
+    @endif
     <p class="book-name {{ $book['book_access'] ==1 ? '' : 'alert alert-danger'}}"> {{ $book['book_name'] }}
     </p>
 </div>
