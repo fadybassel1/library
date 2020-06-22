@@ -7,17 +7,17 @@
 </div>
 @endif
 @error('image')
-<div class="alert alert-danger">{{ $message }}</div>
+<div style="text-align: center" class="alert alert-danger">{{ $message }}</div>
 @enderror
 @error('formno')
-<div class="alert alert-danger">{{ $message }}</div>
+<div style="text-align: center" class="alert alert-danger">{{ $message }}</div>
 @enderror
 @error('filee')
-<div class="alert alert-danger">{{ $message }}</div>
+<div style="text-align: center" class="alert alert-danger">{{ $message }}</div>
 @enderror
 @if (session('error'))
-<div  class="alert alert-danger" role="alert">
-    <strong>{{session('error')}}</strong>
+<div style="text-align: center" class="alert alert-danger" role="alert">
+    <strong >{{session('error')}}</strong>
 </div>
 @endif
 <form action="{{route('storeimage')}}" method="POST" enctype="multipart/form-data">

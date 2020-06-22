@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang=""dir="ltr">
 <head>
+    
+    <style type="text/css">
+        @font-face {
+            font-family: 'Bar-Code 39';
+            src: url('{{ asset('fonts/ConnectCode39.eot') }}');
+        }
+        </style>
      <style>
      body{
           margin: 0px;
@@ -60,6 +67,7 @@
           context.fillText(name, 245, 95);
           context.fillText('ID: ', 300, 120);
           context.fillText(id, 245, 120);
+         
           context.font = '30px CCode39';
           context.fillText('*'+ id +'*', 300 , 180 , 280 , 67);
           context.drawImage(imageObj1, 5, 5 , 100 , 100);
