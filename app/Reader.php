@@ -3,17 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reader extends Model
 {
-  protected  $guarded=[];
+  use SoftDeletes;
+  protected  $guarded = [];
 
-  public function photo() {
+  public function photo()
+  {
     return $this->morphOne('App\Photo', 'photoable');
-}
+  }
 
-public function visits() {
-  return $this->belongsToMany('App\Visit');
-}
-
+  public function visits()
+  {
+    return $this->belongsToMany('App\Visit');
+  }
 }
