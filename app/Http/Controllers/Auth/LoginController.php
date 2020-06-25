@@ -38,8 +38,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm()
+    {
+        if (parse_url(session()->get('url.intended'), PHP_URL_PATH) == "/reader") {
+            session(['url.intended' => '/home']);
+        }
+        return view('auth.login');
+    }
+
     public function username()
-{
-    return 'username';
-}
+    {
+        return 'username';
+    }
 }

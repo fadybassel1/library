@@ -47,8 +47,10 @@ class LoginController extends Controller
 
         if ($user) {
             Auth::guard('reader')->login($user);
-            return redirect()->intended('home');
+            $request->session()->regenerate();
+            return redirect()->intended('/reader');
         }
+        return redirect()->back();
     }
     /**
      * Get the guard to be used during authentication.

@@ -1,9 +1,11 @@
-@extends('reader.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="card-header text-center"><a href="/login">Admin ?</a></div>
+            <br>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -16,7 +18,7 @@
 
                             <div class="col-md-6">
                                 <input id="id" type="number" class="form-control @error('id') is-invalid @enderror"
-                                    name="id" value="{{ old('id') }}" required autocomplete="id" autofocus>
+                                    name="id" value="{{ old('id') }}" required autofocus>
 
                                 @error('id')
                                 <span class="invalid-feedback" role="alert">
