@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "bmatovu/multi-auth": "^8.0",
         "fideloper/proxy": "^4.0",
         "johntaa/ar-php": "dev-master",
         "laravel/framework": "^6.2",

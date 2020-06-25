@@ -2,21 +2,23 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Reader extends Model
+class Reader extends Authenticatable
 {
-  use SoftDeletes;
-  protected  $guarded = [];
+    use Notifiable;
+    use SoftDeletes;
+    protected  $guarded = [];
 
-  public function photo()
-  {
-    return $this->morphOne('App\Photo', 'photoable');
-  }
+    public function photo()
+    {
+        return $this->morphOne('App\Photo', 'photoable');
+    }
 
-  public function visits()
-  {
-    return $this->belongsToMany('App\Visit');
-  }
+    public function visits()
+    {
+        return $this->belongsToMany('App\Visit');
+    }
 }

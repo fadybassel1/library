@@ -46,7 +46,24 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapReaderRoutes();
+
         //
+    }
+
+    /**
+     * Define the "reader" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapReaderRoutes()
+    {
+        Route::prefix('reader')
+             ->middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/reader.php'));
     }
 
     /**

@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'reader' => [
+            'driver' => 'session',
+            'provider' => 'readers',
+        ],
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -66,6 +71,11 @@ return [
     */
 
     'providers' => [
+        'readers' => [
+            'driver' => 'eloquent',
+            'model' => App\Reader::class,
+        ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
@@ -93,6 +103,12 @@ return [
     */
 
     'passwords' => [
+        'readers' => [
+            'provider' => 'readers',
+            'table' => 'reader_password_resets',
+            'expire' => 60,
+        ],
+
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',

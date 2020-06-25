@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76492ceaf7159710353dced98d052ce7",
+    "content-hash": "b64025f6426f5aeea0b598b42531cda8",
     "packages": [
+        {
+            "name": "bmatovu/multi-auth",
+            "version": "v8.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtvbrianking/multi-auth.git",
+                "reference": "0a011727519f5fb55f09553eaf5b5d4ae4f71542"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtvbrianking/multi-auth/zipball/0a011727519f5fb55f09553eaf5b5d4ae4f71542",
+                "reference": "0a011727519f5fb55f09553eaf5b5d4ae4f71542",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^6.0",
+                "illuminate/console": "^6.0",
+                "illuminate/notifications": "^6.0",
+                "illuminate/routing": "^6.0",
+                "illuminate/support": "^6.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bmatovu\\MultiAuth\\MultiAuthServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bmatovu\\MultiAuth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Matovu",
+                    "email": "mtvbrianking@gmail.com",
+                    "homepage": "http://bmatovu.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Multi Authentication",
+            "homepage": "https://github.com/mtvbrianking/multi-auth",
+            "keywords": [
+                "Authentication",
+                "laravel",
+                "multi",
+                "package"
+            ],
+            "time": "2019-09-06T08:38:57+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "v0.1.1",
