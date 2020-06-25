@@ -46,5 +46,5 @@ Route::get('/restoredeleted/{reader}', 'ReaderController@restoredeleted')->name(
 
 Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
-Route::post('/storeimage','ReaderController@storeimage')->name('storeimage');
-Route::get('/printcard/{id}','ReaderController@printcard')->name('printcard');
+Route::post('/storeimage', 'ReaderController@storeimage')->name('storeimage');
+Route::get('/printcard/{id}', 'ReaderController@printcard')->name('printcard');
