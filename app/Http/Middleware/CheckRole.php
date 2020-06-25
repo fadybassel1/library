@@ -13,18 +13,15 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next ,...$roles)
+    public function handle($request, Closure $next, ...$roles)
     {
-        
-        foreach ($roles as $role)
-        {
-            if($request->user()->role == $role)
-            return $next($request);
-        }
-            
-        
-        return redirect('home');
-        
 
+        foreach ($roles as $role) {
+            if ($request->user() && $request->user()->role == $role)
+                return $next($request);
+        }
+
+
+        return redirect('home');
     }
 }
