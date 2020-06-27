@@ -9,6 +9,11 @@
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
+                @if(Session::has('status'))
+                <div class="container alert alert-danger" role="alert">
+                    {{ Session::get('status') }}
+                </div>
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ route('reader.login') }}" aria-label="{{ __('Login') }}">
                         @csrf
@@ -17,8 +22,12 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autofocus placeholder="اول اسم فقط">
+                                <input onfocus="show(this.id)" onblur="hide(this.id)" id="name" type="text"
+                                    class="form-control @error('name') is-invalid @enderror" name="name"
+                                    value="{{ old('name') }}" data-toggle="popover" data-placement="right"
+                                    title="اول اسم فقط"
+                                    data-content='<img src="{{asset('nameguide.png')}}" width="200">' required
+                                    autocomplete="off" placeholder="اول اسم فقط">
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -32,8 +41,12 @@
                             <label for="id" class="col-md-4 col-form-label text-md-right">{{ __('ID') }}</label>
 
                             <div class="col-md-6">
-                                <input id="id" type="number" class="form-control @error('id') is-invalid @enderror"
-                                    name="id" value="{{ old('id') }}" required>
+                                <input onfocus="show(this.id)" onblur="hide(this.id)" id="id" type="number"
+                                    class="form-control @error('id') is-invalid @enderror" name="id"
+                                    value="{{ old('id') }}" data-toggle="popover" data-placement="right"
+                                    title="موقعه على الكارت"
+                                    data-content='<img src="{{asset('idguide.png')}}" width="200">' required
+                                    autocomplete="off">
 
                                 @error('id')
                                 <span class="invalid-feedback" role="alert">
@@ -41,10 +54,6 @@
                                 </span>
                                 @enderror
                             </div>
-                            <a data-toggle="tooltip" title="<img src='http://getbootstrap.com/apple-touch-icon.png' />">
-                                <i style="font-size:22px; padding-top:10px; " class="fa fa-info-circle"
-                                    aria-hidden="true"></i>
-                            </a>
                         </div>
 
                         <div class="form-group row mb-0">
@@ -56,15 +65,32 @@
                         </div>
                     </form>
                 </div>
+
+
             </div>
         </div>
     </div>
 </div>
+
 <script>
-    $('a[data-toggle="tooltip"]').tooltip({
-    animated: 'fade',
-    placement: 'bottom',
-    html: true
-    });
+    window.onload = function () {
+
+    $('#id').popover({
+        html:true
+  });
+     $('#name').popover({
+        html:true
+  });
+
+    
+}
+
+function show(id){
+    $('#'+id).popover('show');
+}
+
+function hide(id){
+    $('#'+id).popover('hide');
+}
 </script>
 @endsection

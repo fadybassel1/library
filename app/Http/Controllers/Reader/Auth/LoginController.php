@@ -47,14 +47,17 @@ class LoginController extends Controller
             'name' => "required|string",
             'id' => 'required|size:8',
         ]);
-        $user = Reader::where('id', $request->id,)->first(); // Something like User:: where() or whatever depending on your impl.
+        $user = Reader::where('id', $request->id)->first(); // Something like User:: where() or whatever depending on your impl.
+        if(!$user)
+        return redirect()->back()->with('status','الاسم او الرقم غير صحيح');
+
         $user = $request->name == strtok($user->name,  ' ') ? $user : NULL;
         if ($user) {
             Auth::guard('reader')->login($user);
             $request->session()->regenerate();
             return redirect()->intended('/reader');
         }
-        return redirect()->back();
+        return redirect()->back()->with('status','الاسم او الرقم غير صحيح');
     }
     /**
      * Get the guard to be used during authentication.
