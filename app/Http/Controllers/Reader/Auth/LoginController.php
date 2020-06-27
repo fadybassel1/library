@@ -44,11 +44,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
+            'name' => "required|string",
             'id' => 'required|size:8',
         ]);
-
-        $user = Reader::where('id', $request->id)->first(); // Something like User:: where() or whatever depending on your impl.
-
+        $user = Reader::where('id', $request->id,)->first(); // Something like User:: where() or whatever depending on your impl.
+        $user = $request->name == strtok($user->name,  ' ') ? $user : NULL;
         if ($user) {
             Auth::guard('reader')->login($user);
             $request->session()->regenerate();
