@@ -31,11 +31,11 @@ Route::get('bookSearch', 'BookController@bookSearch');
 
 Route::get('/takepicture', function () {
     return view('reader.takepicture');
-})->name('readers.takepicture');
+})->name('readers.takepicture')->middleware('auth');
 
 Route::get('/attendance', function () {
     return view('reader.attendance');
-})->name('attendance');
+})->name('attendance')->middleware('auth');
 
 
 
@@ -48,3 +48,4 @@ Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
 Route::post('/storeimage', 'ReaderController@storeimage')->name('storeimage');
 Route::get('/printcard/{id}', 'ReaderController@printcard')->name('printcard');
+

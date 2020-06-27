@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -23,7 +24,7 @@ class BookController extends Controller
     return view('book.allbooks');
   }
 
-
+ 
 
   public function show($bookid)
   {

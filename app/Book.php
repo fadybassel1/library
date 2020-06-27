@@ -14,4 +14,9 @@ class Book extends Model
   {
     return $this->morphOne('App\Photo', 'photoable');
   }
+
+  public function tags(){
+      return $this->belongsToMany('App\Tag','book_tag');
+    }
+
 }

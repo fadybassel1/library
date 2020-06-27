@@ -20,7 +20,7 @@ class ReaderController extends Controller
     $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedreaders', 'restoredeleted');
   }
 
-
+  
 
   /**
    * Display a listing of the resource.
