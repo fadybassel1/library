@@ -37,12 +37,16 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('reader.guest:reader', ['except' => 'logout']);
+        $this->middleware('guest')->except('logout');
     }
 
 
     public function login(Request $request)
     {
+        $request->validate([
+            'id' => 'required|size:8',
+        ]);
+
         $user = Reader::where('id', $request->id)->first(); // Something like User:: where() or whatever depending on your impl.
 
         if ($user) {
