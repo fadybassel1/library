@@ -41,8 +41,8 @@ Route::get('/attendance', function () {
 
 Route::get('/deletedreaders', 'ReaderController@deletedreaders')->name('deletedreaders');
 Route::get('/deletedbooks', 'BookController@deletedbooks')->name('deletedbooks');
-Route::get('/restoredeleted/{book}', 'BookController@restoredeleted')->name('restorebook');
-Route::get('/restoredeleted/{reader}', 'ReaderController@restoredeleted')->name('restorereader');
+Route::get('/restoredeletedbook/{book}', 'BookController@restoredeleted')->name('restorebook');
+Route::get('/restoredeletedreader/{reader}', 'ReaderController@restoredeleted')->name('restorereader');
 
 Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
