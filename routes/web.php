@@ -41,6 +41,8 @@ Route::get('/attendance', function () {
 
 
 
+
+
 Route::get('/deletedreaders', 'ReaderController@deletedreaders')->name('deletedreaders');
 Route::get('/deletedbooks', 'BookController@deletedbooks')->name('deletedbooks');
 Route::get('/restoredeletedbook/{book}', 'BookController@restoredeleted')->name('restorebook');
@@ -50,3 +52,8 @@ Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
 Route::post('/storeimage', 'ReaderController@storeimage')->name('storeimage');
 Route::get('/printcard/{id}', 'ReaderController@printcard')->name('printcard');
+
+Route::post('/reportBook', 'BookController@report')->name('reportproblem');
+
+Route::get('/deletereport/{id}', 'BookController@deletereport')->name('deletereport');
+Route::get('/reports', 'BookController@showreports' )->name('showreports');

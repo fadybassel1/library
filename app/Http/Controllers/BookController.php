@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use App\Tag;
+use App\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class BookController extends Controller
 {
@@ -133,5 +135,33 @@ class BookController extends Controller
   {
     $tag = Tag::findOrFail($tagid);
     return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name]);
+  }
+
+  public function report(Request $request){
+    $request->validate([
+      'about' => 'in:بيانات الكتاب,صورة الكتاب' ,
+      'details' => 'required | max:70',
+
+    ]);
+        $report =new Report();
+        $report->target="books";
+        $report->targetid=$request->bookid;
+        $report->about=$request->about;
+        $report->details=$request->details;
+        $report->save();
+        return redirect()->back()->with('status', 'تم ارسال المشكلة');
+  }
+
+  public function showreports(){
+    $reports =Report::all();
+
+   
+    return view('reports',compact('reports'));
+  }
+
+  public function deletereport($id){
+    $report=Report::findOrFail($id);
+    $report->delete();
+    return back()->with('status', 'تم حذف الشكوى');
   }
 }

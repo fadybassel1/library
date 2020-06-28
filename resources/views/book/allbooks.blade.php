@@ -30,6 +30,7 @@
                     <div id="selectTags">
                         <select name="tags[]" style="margin-left: -2px;" class="selectpicker show-menu-arrow"
                             data-style="form-control" data-live-search="true" title="Search" multiple="multiple">
+                            
                             @foreach ($tags as $tag)
                             <option value="{{ $tag->id }}" data-tokens="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use App\Reader;
+use App\Report;
 use App\Visit;
 use Session;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class HomeController extends Controller
         $last7daysCount = Visit::Where('day', '>', DB::raw("Date(NOW()) - INTERVAL 7 DAY"))->count();
         $booksCount = Book::all()->count();
         $readersCount = Reader::all()->count();
-        return view('home', compact('daysCount', 'todayUsers', 'last7daysCount', 'booksCount', 'readersCount'));
+        $reportsCount = Report::all()->count();
+        return view('home', compact('daysCount', 'todayUsers', 'last7daysCount', 'booksCount', 'readersCount','reportsCount'));
     }
 }

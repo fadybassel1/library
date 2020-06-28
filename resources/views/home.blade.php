@@ -109,6 +109,9 @@ $days[4] = $day['COUNT(*)'];
                             <a class="list-group-item list-group-item-action waves-effect">عدد الكتب
                                 <span class="badge badge-dark badge-pill pull-right">{{ $booksCount }}</span>
                             </a>
+                        <a href="{{route('showreports')}}" class="list-group-item list-group-item-action waves-effect">الشكاوى
+                                <span class="badge badge-danger badge-pill pull-right">{{ $reportsCount }}</span>
+                            </a>
                         </div>
                         <!-- List group links -->
 
