@@ -49,7 +49,7 @@ class TagController extends Controller
         $tag = new Tag();
         $tag->name = $request->name;
         $tag->save();
-        return redirect(route('tags.index'));
+        return redirect(route('tags.index'))->with('status', 'تم اضافة التاج');
     }
 
     /**
@@ -89,7 +89,7 @@ class TagController extends Controller
         $tag = Tag::find($id);
         $tag->name = $request->name;
         $tag->save();
-        return redirect(route('tags.index'));
+        return redirect(route('tags.index'))->with('status', 'تم تعديل التاج');;
     }
 
     /**
@@ -101,6 +101,6 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag->delete();
-        return back()->with('deleted', 'تم مسح التاج');
+        return back()->with('status', 'تم مسح التاج');
     }
 }
