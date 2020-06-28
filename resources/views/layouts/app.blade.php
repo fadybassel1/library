@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{ asset('mdb/css/mdb.min.css')}} ">
     <!-- Plugin file -->
     <link rel="stylesheet" href="{{ asset('mdb/css/addons/datatables.min.css') }}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css">
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="{{ asset('mdb/css/style.css') }}">
     <!--Jquery -->
@@ -31,6 +34,10 @@
     <script type="text/javascript" src="{{ asset('mdb/js/bootstrap.min.js') }}"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="{{ asset('mdb/js/mdb.min.js') }}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js"></script>
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/i18n/defaults-*.min.js"></script>
     <!-- Plugin file -->
     <script src="{{asset('mdb/js/addons/datatables.min.js')}}"></script>
     <!-- Fonts -->
@@ -88,9 +95,6 @@
                         @elseif (Auth::user())
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('tags.index')}}">{{ __('Tags') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('books.index') }}"></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"

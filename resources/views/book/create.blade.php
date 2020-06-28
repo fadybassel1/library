@@ -68,12 +68,25 @@
     <div class="infoo">
       <p class="alert alert-info">المحتوى</p>
 
-      <textarea name="book_description" style="width: 90%; margin: 0 auto;" dir="rtl" class="form-control" rows="30"
+      <textarea name="book_description" style="width: 90%; margin: 0 auto;" dir="rtl" class="form-control" rows="28"
         cols="30"></textarea>
+      <br>
+      <label for="">Tags</label>
+      <select name="tags[]" class="selectpicker show-menu-arrow" data-style="form-control" data-live-search="true"
+        title="Tags" multiple="multiple">
+        @foreach ($tags as $tag)
+        <option value="{{ $tag->id }}" data-tokens="{{ $tag->id }}">{{ $tag->name }}</option>
+        @endforeach
+      </select>
+      <br>
       <button class="btn btn-primary btn-lg" type="submit">حفظ</button>
     </div>
   </form>
 </div>
+
+<script>
+  $('select').selectpicker();
+</script>
 {{-- <button type="button" class="btn btn-primary" name="button">create book</button> --}}
 
 @endsection

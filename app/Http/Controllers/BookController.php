@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -39,7 +40,8 @@ class BookController extends Controller
    */
   public function create()
   {
-    return view('book.create');
+    $tags = Tag::all();
+    return view('book.create', compact('tags'));
   }
 
   /**
@@ -50,7 +52,8 @@ class BookController extends Controller
    */
   public function store(Request $request)
   {
-    Book::create($request->all());
+    $book = Book::create($request->except(['tags']));
+    $book->tags()->attach($request->tags);
     return back()->with('created', 'تم اضافة الكتاب');
   }
 
