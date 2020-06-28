@@ -101,11 +101,12 @@ class BookController extends Controller
 
   public function bookSearch(Request $request)
   {
+    
+    $tags = Tag::all();
     if ($request['search'] == 'tags') {
       $books = Book::whereHas('tags', function ($query) use ($request) {
         $query->whereIn('tag_id', $request->tags);
       })->Paginate(10);
-      $tags = Tag::all();
       return view('book.allbooks', compact('books', 'tags'));
     }
     $searching = $request['qq'];
@@ -113,7 +114,7 @@ class BookController extends Controller
       $searching = 'ر' . $request['qq'] . '-';
 
     $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
-    return view('book.allbooks', ['books' => $books]);
+    return view('book.allbooks', compact('books','tags'));
   }
 
   public function deletedbooks()
