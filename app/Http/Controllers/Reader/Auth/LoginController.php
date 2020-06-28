@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -55,6 +56,9 @@ class LoginController extends Controller
         $user = $request->name == strtok($user->name,  ' ') ? $user : NULL;
         if ($user) {
             Log::info('READER: ' . $user->name . ' Enter At ' . date("Y-m-d H:i:s"));
+            Session::put('lastLogin', $user->last_login);
+            $user->last_login = date('Y-m-d');
+            $user->save();
             Auth::guard('reader')->login($user);
             $request->session()->regenerate();
             return redirect()->intended('/reader');

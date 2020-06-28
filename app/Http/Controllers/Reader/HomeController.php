@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Reader;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -26,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('reader.home');
+        $keywords = DB::table('search_keywords')->where('reader_id', Auth::guard('reader')->user()->id)->orderBy('created_at', 'desc')->take(5)->get();
+        return view('reader.home', compact('keywords'));
     }
 }

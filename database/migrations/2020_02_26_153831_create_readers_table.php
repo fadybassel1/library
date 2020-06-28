@@ -47,6 +47,7 @@ class CreateReadersTable extends Migration
             $table->tinyInteger('active')->nullable();
             $table->string('soundlike', 90)->nullable();
             $table->softDeletes();
+            $table->date('last_login')->nullable();
             $table->timestamps();
         });
     }

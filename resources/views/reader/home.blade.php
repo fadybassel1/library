@@ -68,8 +68,8 @@ Book read
                                 @foreach (Auth::guard('reader')->user()->books as $i => $book)
                                 <tr dir="rtl" style="text-align: right;">
                                     <td>
-                                        <a href="">
-                                            {{ $book->book_name }}
+                                        <a href="/books/{{ $book->id }}">
+                                            <h5>{{ $book->book_name }}</h5>
                                             <p>{{ $book['book_description'] }}</p>
                                         </a>
                                     </td>
@@ -98,7 +98,7 @@ Book read
                         <!-- List group links -->
                         <div class="list-group list-group-flush text-right" style="font-size:18px;" dir="rtl">
                             <a class="list-group-item list-group-item-action waves-effect">اخر تسجيل دخول
-                                <span class="float-left">2020-06-20</span>
+                                <span class="float-left">{{ Session::get('lastLogin') }}</span>
                             </a>
                         </div>
                         <!-- List group links -->
@@ -118,21 +118,11 @@ Book read
                         <table id="DBTable" class="table table-hover">
                             <!-- Table body -->
                             <tbody>
+                                @foreach ($keywords as $keyword)
                                 <tr>
-                                    <td class="text-center"><a href="/">يونان</a></td>
+                                    <td style="text-align: right;"><a href="">{{ $keyword->keyword }}</a></td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center"><a href="/">يونان</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center"><a href="/">يونان</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center"><a href="/">يونان</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center"><a href="/">يونان</a></td>
-                                </tr>
+                                @endforeach
                             </tbody>
                             <!-- Table body -->
                         </table>
