@@ -74,23 +74,10 @@
 
 <script>
     window.onload = function () {
-
-    $('#id').popover({
-        html:true
-  });
-     $('#name').popover({
-        html:true
-  });
-
-    
-}
-
-function show(id){
-    $('#'+id).popover('show');
-}
-
-function hide(id){
-    $('#'+id).popover('hide');
-}
+        $('#id').popover({html:true});
+        $('#name').popover({html:true});
+    }
+    function show(id){$('#'+id).popover('show');}
+    function hide(id){$('#'+id).popover('hide');}
 </script>
 @endsection

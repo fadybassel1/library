@@ -7,6 +7,7 @@ use App\Reader;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -48,16 +49,17 @@ class LoginController extends Controller
             'id' => 'required|size:8',
         ]);
         $user = Reader::where('id', $request->id)->first(); // Something like User:: where() or whatever depending on your impl.
-        if(!$user)
-        return redirect()->back()->with('status','الاسم او الرقم غير صحيح');
+        if (!$user)
+            return redirect()->back()->with('status', 'الاسم او الرقم غير صحيح');
 
         $user = $request->name == strtok($user->name,  ' ') ? $user : NULL;
         if ($user) {
+            Log::info('READER: ' . $user->name . ' Enter At ' . date("Y-m-d H:i:s"));
             Auth::guard('reader')->login($user);
             $request->session()->regenerate();
             return redirect()->intended('/reader');
         }
-        return redirect()->back()->with('status','الاسم او الرقم غير صحيح');
+        return redirect()->back()->with('status', 'الاسم او الرقم غير صحيح');
     }
     /**
      * Get the guard to be used during authentication.
@@ -87,7 +89,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-
+        Log::info('READER: ' . $this->guard()->user()->name . ' Exit At ' . date("Y-m-d H:i:s"));
         $this->guard()->logout();
 
         $request->session()->invalidate();
