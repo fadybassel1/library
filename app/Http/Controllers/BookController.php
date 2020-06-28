@@ -24,7 +24,7 @@ class BookController extends Controller
     return view('book.allbooks');
   }
 
- 
+
 
   public function show($bookid)
   {
@@ -96,7 +96,6 @@ class BookController extends Controller
   public function bookSearch(Request $request)
   {
     $searching = $request['qq'];
-
     if ($request['search'] == "book_position")
       $searching = 'ر' . $request['qq'] . '-';
 
@@ -114,5 +113,11 @@ class BookController extends Controller
   {
     Book::onlyTrashed()->findOrFail($book)->restore();
     return redirect()->back()->with('status', 'تم استرجاع الكتاب');
+  }
+
+  public function bookTagSearch($tagid)
+  {
+    $tag = Tag::findOrFail($tagid);
+    return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name]);
   }
 }

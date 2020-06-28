@@ -27,6 +27,7 @@ Route::get('/create', 'BookController@create');
 Route::resource('readers', 'ReaderController');
 Route::resource('books', 'BookController');
 Route::get('bookSearch', 'BookController@bookSearch');
+Route::get('bookSearch/{tagid}', 'BookController@bookTagSearch');
 
 
 Route::get('/takepicture', function () {
@@ -48,4 +49,3 @@ Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
 Route::post('/storeimage', 'ReaderController@storeimage')->name('storeimage');
 Route::get('/printcard/{id}', 'ReaderController@printcard')->name('printcard');
-

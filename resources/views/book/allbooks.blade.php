@@ -8,6 +8,13 @@
     {{ Session::get('status') }}
 </div>
 @endif
+@if ($tagname ?? '' != NULL)
+<div class="text-center">
+    <div style="font-size: 20px; margin-right: 15px;" class="badge badge-light">{{ $tagname }}</div>
+</div>
+<br>
+@endif
+
 <form action="/bookSearch" method="get">
     @csrf
 
@@ -44,13 +51,15 @@
     </div>
 </form>
 
+
 @if ($books ?? '' != NULL)
 <div style="text-align: center" class="alert alert-info">found total of {{  $books->total() }} results</div>
 <ul class="list-group list-group-flush text-right">
     @foreach ($books as $book)
     <li class="list-group-item">
-        <h5> @if($book['book_access']==0) <span class="badge badge-danger">Restricted</span>@endif <a href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
-           
+        <h5> @if($book['book_access']==0) <span class="badge badge-danger">Restricted</span>@endif <a
+                href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
+
         </h5>
         <p>{{ $book['book_description'] }}</p>
 

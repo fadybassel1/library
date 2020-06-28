@@ -45,6 +45,7 @@
     {{ Session::get('status') }}
 </div>
 @endif
+
 <div class="text-center">
     @if (Auth::user()->role=='admin')
     <a href="{{ route('books.edit', $book) }}" class="btn btn-primary">تعديل</a>
@@ -56,6 +57,13 @@
     @endif
     <p class="book-name {{ $book['book_access'] ==1 ? '' : 'alert alert-danger'}}"> {{ $book['book_name'] }}
     </p>
+</div>
+<br>
+<div class="text-center">
+    @foreach ($book->tags as $tag)
+    <a style="font-size: 20px; margin-right: 15px;" class="badge badge-light"
+        href="/bookSearch/{{ $tag->id }}">{{ $tag->name }}</a>
+    @endforeach
 </div>
 <br>
 <div class="address">
