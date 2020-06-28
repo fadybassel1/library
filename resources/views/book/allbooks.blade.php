@@ -2,7 +2,10 @@
 
 @section('content')
 
+<style>
 
+
+</style>
 @if(Session::has('status'))
 <div class="container alert alert-success" role="alert">
     {{ Session::get('status') }}
@@ -17,7 +20,7 @@
 
 <form action="/bookSearch" method="get">
     @csrf
-
+    
     <div style="" class="card align-items-center">
         <div class="card-body">
             <div class="row">
@@ -34,9 +37,9 @@
                     </div>
                 </div>
                 <div class="col">
-
+                    
                     <input class="btn btn-elegant" style="color: white" type="submit" id="searchbtn" value="بحث" />
-
+                    
                 </div>
             </div>
             <div class="row">
@@ -62,13 +65,20 @@
 </form>
 
 
+
+
+<div  style="margin: 0 auto; text-align: center"  id="container">
+      <iframe id="iframe" src="{{asset('algo.pdf')}}#toolbar=0" width="70%" height="600px;" ></iframe>
+  </div>
+
+
 @if ($books ?? '' != NULL)
 <div style="text-align: center" class="alert alert-info">found total of {{  $books->total() }} results</div>
 <ul class="list-group list-group-flush text-right">
     @foreach ($books as $book)
     <li class="list-group-item">
         <h5> @if($book['book_access']==0) <span class="badge badge-danger">Restricted</span>@endif <a
-                href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
+            href="{{ route('books.show', $book) }}">{{ $book['book_name'] }}</a>
 
         </h5>
         <p>{{ $book['book_description'] }}</p>

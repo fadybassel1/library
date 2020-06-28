@@ -34,7 +34,7 @@
                     <td class="text-center"><a href="">{{ $reader->name }}</a></td>
                     <td class="text-center">{{ $reader->deleted_at->diffForHumans() }}</td>
                     <td class="text-center"><a class="btn btn-success"
-                            href="{{route('restorereader',$reader)}}">ارجاع</a>
+                            href="{{route('restorereader',$reader->id)}}">ارجاع</a>
                     </td>
                 </tr>
                 @endforeach
