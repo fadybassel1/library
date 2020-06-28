@@ -16,18 +16,19 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->softDeletes();
+            $table->timestamps();
         });
 
 
         Schema::create('book_tag', function (Blueprint $table) {
-           
+
             $table->bigInteger('book_id')->unsigned();
             $table->bigInteger('tag_id')->unsigned();
-            $table->primary(['book_id','tag_id']);
+            $table->primary(['book_id', 'tag_id']);
             $table->foreign('book_id')->references('id')->on('books');
             $table->foreign('tag_id')->references('id')->on('tags');
         });
-
     }
 
     /**
