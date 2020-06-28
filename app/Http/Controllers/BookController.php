@@ -66,7 +66,8 @@ class BookController extends Controller
    */
   public function edit(Book $book)
   {
-    return view('book.edit', compact('book'));
+    $tags = Tag::all();
+    return view('book.edit', compact('book', 'tags'));
   }
 
 
@@ -92,7 +93,8 @@ class BookController extends Controller
   public function update(Request $request, Book $book)
   {
     // dd($request);
-    $book->update($request->all());
+    $book->update($request->except(['tags']));
+    $book->tags()->sync($request->tags);
     return redirect()->route('books.show', $book)->with('status', 'تم تعديل بيانات الكتاب بنجاح');
   }
 

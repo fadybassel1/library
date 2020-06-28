@@ -71,8 +71,18 @@
     <div class="infoo">
       <p class="alert alert-info">المحتوى</p>
 
-      <textarea name="book_description" style="width: 90%; margin: 0 auto;" dir="rtl" class="form-control" rows="30"
+      <textarea name="book_description" style="width: 90%; margin: 0 auto;" dir="rtl" class="form-control" rows="28"
         cols="30">{{ $book->book_description }}</textarea>
+      <label for="">Tags</label>
+      <select name="tags[]" class="selectpicker show-menu-arrow" data-style="form-control" data-live-search="true"
+        title="Tags" multiple="multiple">
+        @foreach ($tags as $tag)
+        <option value="{{ $tag->id }}" data-tokens="{{ $tag->id }}" @if($book->tags->contains($tag->id))
+          {{ 'selected' }}
+          @endif>{{ $tag->name }}</option>
+        @endforeach
+      </select>
+      <br>
       <button class="btn btn-primary btn-lg" type="submit">تعديل</button>
     </div>
   </form>
