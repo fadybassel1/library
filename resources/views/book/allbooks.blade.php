@@ -22,8 +22,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-10">
-                    <input class="form-control" name="qq" autocomplete="on" type="text" placeholder="Search"
+                    <input class="form-control" id="qq" name="qq" autocomplete="on" type="text" placeholder="Search"
                         aria-label="Search">
+                    <div id="selectTags">
+                        <select name="tags[]" style="margin-left: -2px;" class="selectpicker show-menu-arrow"
+                            data-style="form-control" data-live-search="true" title="Search" multiple="multiple">
+                            @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}" data-tokens="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="col">
 
@@ -33,11 +41,13 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <select style="background-color: #363936; color:white" name="search" class="form-control">
+                    <select style="background-color: #363936; color:white" name="search" id="search"
+                        class="form-control">
                         <option value="book_name">كتاب</option>
                         <option value="book_description">وصف</option>
                         <option value="book_author">مؤلف</option>
                         <option value="book_position">رف</option>
+                        <option value="tags">Tags</option>
                         <option value="all">الجميع</option>
                         <option disabled>──────────</option>
                         <option disabled value="genre">تصنيف</option>
@@ -70,5 +80,21 @@
     {{$books->appends(Request::all())->links()}}
 </div>
 @endif
+
+<script>
+    $('#selectTags').hide();
+    $('#search').on('change', function() {
+       if(this.value == 'tags')
+       {
+           $('#qq').hide();
+           $('#selectTags').show();
+       }
+       else
+       {
+           $('#qq').show();
+           $('#selectTags').hide();
+       }
+    }); 
+</script>
 
 @endsection

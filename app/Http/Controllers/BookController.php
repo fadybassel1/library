@@ -22,7 +22,8 @@ class BookController extends Controller
   */
   public function index()
   {
-    return view('book.allbooks');
+    $tags = Tag::all();
+    return view('book.allbooks', compact('tags'));
   }
 
 
@@ -100,6 +101,13 @@ class BookController extends Controller
 
   public function bookSearch(Request $request)
   {
+    if ($request['search'] == 'tags') {
+      $books = Book::whereHas('tags', function ($query) use ($request) {
+        $query->whereIn('tag_id', $request->tags);
+      })->Paginate(10);
+      $tags = Tag::all();
+      return view('book.allbooks', compact('books', 'tags'));
+    }
     $searching = $request['qq'];
     if ($request['search'] == "book_position")
       $searching = 'ر' . $request['qq'] . '-';
