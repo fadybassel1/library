@@ -5,12 +5,13 @@
 
 <!-- Editable table -->
 <div class="card">
-  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">All Tags table</h3>
-  <a class="btn btn-info btn-rounded" href="{{ route('tags.create') }}">ADD</a>
-  @if(Session::has('deleted'))
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">All Tags table <a
+      class="btn btn-info btn-rounded" href="{{ route('tags.create') }}">ADD</a>
+  </h3>
+  @if(Session::has('status'))
   <br>
   <div class="container alert alert-success" role="alert">
-    {{ Session::get('deleted') }}
+    {{ Session::get('status') }}
   </div>
   @endif
   <div class="card-body">
