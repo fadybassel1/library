@@ -138,7 +138,8 @@ class BookController extends Controller
   public function bookTagSearch($tagid)
   {
     $tag = Tag::findOrFail($tagid);
-    return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name]);
+    $tags=Tag::all();
+    return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name , 'tags' => $tags]);
   }
 
   public function report(Request $request){

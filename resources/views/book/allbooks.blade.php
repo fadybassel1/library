@@ -34,6 +34,7 @@
                             @foreach ($tags as $tag)
                             <option value="{{ $tag->id }}" data-tokens="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
+                        
                         </select>
                     </div>
                 </div>
