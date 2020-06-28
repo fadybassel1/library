@@ -6,6 +6,7 @@ use App\Book;
 use App\Tag;
 use App\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -32,6 +33,9 @@ class BookController extends Controller
 
   public function show($bookid)
   {
+    if (Auth::guard('reader')->user()) {
+      Auth::guard('reader')->user()->books()->sync([$bookid => ['date_read' =>  date('Y-m-d H:m:s')]]);
+    }
     $book = Book::findOrFail($bookid);
     return view('book.show', compact('book'));
   }
@@ -103,7 +107,7 @@ class BookController extends Controller
 
   public function bookSearch(Request $request)
   {
-    
+
     $tags = Tag::all();
     if ($request['search'] == 'tags') {
       $books = Book::whereHas('tags', function ($query) use ($request) {
@@ -116,7 +120,7 @@ class BookController extends Controller
       $searching = 'ر' . $request['qq'] . '-';
 
     $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
-    return view('book.allbooks', compact('books','tags'));
+    return view('book.allbooks', compact('books', 'tags'));
   }
 
   public function deletedbooks()

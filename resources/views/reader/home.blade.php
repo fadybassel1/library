@@ -17,6 +17,10 @@
                     You are logged in!
                 </div>
             </div>
+            Book read
+            @foreach (Auth::guard('reader')->user()->books as $book)
+            <div>{{ $book->book_name }}, {{ $book->pivot->date_read }}</div>
+            @endforeach
         </div>
     </div>
 </div>

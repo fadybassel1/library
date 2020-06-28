@@ -21,4 +21,9 @@ class Reader extends Authenticatable
     {
         return $this->belongsToMany('App\Visit');
     }
+
+    public function books()
+    {
+        return $this->belongsToMany('App\Book')->withPivot('date_read');
+    }
 }
