@@ -426,7 +426,6 @@
         },
         onFinished: function (event, currentIndex)
         {
-            alert("Submitted!");
             form.submit();
         },
         onInit: function (event, current) {
