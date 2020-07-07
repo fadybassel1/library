@@ -38,6 +38,15 @@
         text-align: center;
         font-size: 20px;
     }
+
+    .icon-google {
+        margin-left: 10px;
+        background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
 </style>
 @if(Session::has('status'))
 <br>
@@ -47,18 +56,19 @@
 @endif
 
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
 @endif
 
 <div class="text-center">
     @if (Auth::user()->role=='admin')
-    <a  data-toggle="modal" data-target="#modalSubscriptionForm" style="color: white" class="btn btn-warning"> ارسال مشكلة  <i style="color: white" class="fas fa-flag"> </i></a>
+    <a data-toggle="modal" data-target="#modalSubscriptionForm" style="color: white" class="btn btn-warning"> ارسال
+        مشكلة <i style="color: white" class="fas fa-flag"> </i></a>
     <a href="{{ route('books.edit', $book) }}" class="btn btn-primary">تعديل</a>
     <form class="d-inline" action="{{ route('books.destroy', $book) }}" method="POST">
         @csrf
@@ -68,6 +78,8 @@
     @endif
     <p class="book-name {{ $book['book_access'] ==1 ? '' : 'alert alert-danger'}}"> {{ $book['book_name'] }}
     </p>
+    <a href="https://www.google.com/search?q={{ $book->book_name }}" target="_blank"><i style="font-size: 30px;"
+            class="fab fa-google icon-google"></i></a>
 </div>
 <br>
 <div class="text-center">
@@ -115,48 +127,50 @@
 
 
 <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">ارسال مشكلة عن كتاب</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="{{route('reportproblem')}}" method="POST">
-        @csrf
-        @method('POST')
-      <div class="modal-body mx-3">
-        <div style="margin: 0 auto; text-align: center"  class="md-form mb-5">
-            
-            <!-- Group of default radios - option 2 -->
-            <div class="custom-control custom-radio">
-                <input value="بيانات الكتاب" type="radio" class="custom-control-input" id="defaultGroupExample2" name="about" checked>
-                <label class="custom-control-label" for="defaultGroupExample2">بيانات الكتاب</label>
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">ارسال مشكلة عن كتاب</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        <input type="hidden" name="bookid" value="{{$book->id}}">
-            <div class="custom-control custom-radio">
-                <input value="صورة الكتاب" type="radio" class="custom-control-input" id="defaultGroupExample1" name="about">
-                <label class="custom-control-label" for="defaultGroupExample1">صورة الكتاب</label>
-              </div>
-        </div>
-        
+            <form action="{{route('reportproblem')}}" method="POST">
+                @csrf
+                @method('POST')
+                <div class="modal-body mx-3">
+                    <div style="margin: 0 auto; text-align: center" class="md-form mb-5">
 
-        
-        <div class="md-form mb-4">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input name="details" required type="text" id="form2" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="form2">تفاصيل</label>
-        </div>
+                        <!-- Group of default radios - option 2 -->
+                        <div class="custom-control custom-radio">
+                            <input value="بيانات الكتاب" type="radio" class="custom-control-input"
+                                id="defaultGroupExample2" name="about" checked>
+                            <label class="custom-control-label" for="defaultGroupExample2">بيانات الكتاب</label>
+                        </div>
+                        <input type="hidden" name="bookid" value="{{$book->id}}">
+                        <div class="custom-control custom-radio">
+                            <input value="صورة الكتاب" type="radio" class="custom-control-input"
+                                id="defaultGroupExample1" name="about">
+                            <label class="custom-control-label" for="defaultGroupExample1">صورة الكتاب</label>
+                        </div>
+                    </div>
 
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">Send<i class="fas fa-paper-plane-o ml-1"></i></button>
-        </form>
-      </div>
+
+
+                    <div class="md-form mb-4">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input name="details" required type="text" id="form2" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="form2">تفاصيل</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Send<i class="fas fa-paper-plane-o ml-1"></i></button>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 </div>
 
 

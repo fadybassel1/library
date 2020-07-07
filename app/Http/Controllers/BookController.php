@@ -8,7 +8,6 @@ use App\Report;
 use App\Events\UserReadBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 
 class BookController extends Controller
@@ -16,8 +15,8 @@ class BookController extends Controller
 
   public function __construct()
   {
-   
-   
+    $this->middleware('auth');
+    $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedbooks', 'restoredeleted', 'showreports', 'deletereport');
   }
 
   /* Display a listing of the resource.
@@ -142,19 +141,20 @@ class BookController extends Controller
     return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name , 'tags' => $tags]);
   }
 
-  public function report(Request $request){
+  public function report(Request $request)
+  {
     $request->validate([
-      'about' => 'in:بيانات الكتاب,صورة الكتاب' ,
+      'about' => 'in:بيانات الكتاب,صورة الكتاب',
       'details' => 'required | max:70',
 
     ]);
-        $report =new Report();
-        $report->target="books";
-        $report->targetid=$request->bookid;
-        $report->about=$request->about;
-        $report->details=$request->details;
-        $report->save();
-        return redirect()->back()->with('status', 'تم ارسال المشكلة');
+    $report = new Report();
+    $report->target = "books";
+    $report->targetid = $request->bookid;
+    $report->about = $request->about;
+    $report->details = $request->details;
+    $report->save();
+    return redirect()->back()->with('status', 'تم ارسال المشكلة');
   }
 
   public function showreports(){
@@ -162,8 +162,9 @@ class BookController extends Controller
     return view('reports',compact('reports'));
   }
 
-  public function deletereport($id){
-    $report=Report::findOrFail($id);
+  public function deletereport($id)
+  {
+    $report = Report::findOrFail($id);
     $report->delete();
     return back()->with('status', 'تم حذف الشكوى');
   }
