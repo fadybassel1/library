@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Reader;
 use App\Visit;
 use App\Photo;
+use App\Traits\StoreImageTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Johntaa\Arabic\Arabic\I18N_Arabic_Soundex;
 use Illuminate\Support\Facades\Storage;
 
+
 class ReaderController extends Controller
 {
+  use StoreImageTrait;
   public function __construct()
   {
 
@@ -184,65 +187,22 @@ class ReaderController extends Controller
 
     try {
 
-      $reader = Reader::where('formno', $request->formno)->firstOrFail();
-      $id = $reader->id;
+      $reader = Reader::where('formno', $request->formno)->with('photo')->firstOrFail();
+      
     } catch (ModelNotFoundException $e) {
       return redirect()->back()->with('error', ' رقم الاستمارة غير صحيح');
     }
     $img = $request['image'];
 
     if ($img != null) {
-
-      if (strpos($img, "data:image/jpeg;base64,") === false) {
-
-        return redirect()->back()->with('error', 'الملف لم يكن صورة');
-      }
-
-      $image_parts = explode(";base64,", $img);
-      $image_type_aux = explode("image/", $image_parts[0]);
-      $img = imagecreatefromstring(base64_decode($image_parts[1]));
-      if (!$img) {
-        return redirect()->back()->with('error', 'الملف لم يكن صورة');
-      }
-
-
-      if ($reader->photo) {
-        $photo = $reader->photo;
-        // remove the old image
-        unlink('member photos/' . $photo->filename);
-        imagejpeg($img, "member photos/$id.jpeg");
-        $photo->filename = $id . '.jpeg';
-        $photo->save();
-      } else {
-        imagejpeg($img, "member photos/$id.jpeg");
-        Photo::create([
-          'filename' => $id . '.jpeg',
-          'photoable_id' => $reader->id,
-          'photoable_type' => "App\Reader"
-        ]);
-      }
-    } else {
+      $this->storeCapturedImage($img,$reader);
+    
+    } 
+    else {
+    
       $file = $request->file('filee');
-      $filextention = $file->getClientOriginalExtension();
-      $filename = $reader->id . '.' . $filextention;
-
-      if ($reader->photo) {
-        $photo = $reader->photo;
-        // remove old image.....
-        unlink('member photos/' . $photo->filename);
-        $file->move('member photos', $filename);
-
-        // update photo file name
-        $photo->filename = $filename;
-        $photo->save();
-      } else {
-        $file->move('member photos', $filename);
-        Photo::create([
-          'filename' => $filename,
-          'photoable_id' => $reader->id,
-          'photoable_type' => "App\Reader"
-        ]);
-      }
+      $this->storeUploadedImage($file,$reader);
+    
     }
     return redirect()->back()->with('status', $reader->id);
   }

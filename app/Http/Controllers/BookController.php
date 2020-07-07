@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Tag;
 use App\Report;
+use App\Events\UserReadBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +16,8 @@ class BookController extends Controller
 
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedbooks', 'restoredeleted','showreports','deletereport');
+   
+   
   }
 
   /* Display a listing of the resource.
@@ -33,10 +34,9 @@ class BookController extends Controller
 
   public function show($bookid)
   {
-    if (Auth::guard('reader')->user()) {
-      Auth::guard('reader')->user()->books()->sync([$bookid => ['date_read' =>  date('Y-m-d H:m:s')]]);
-    }
+   
     $book = Book::findOrFail($bookid);
+    event(new UserReadBook($book));
     return view('book.show', compact('book'));
   }
 
@@ -159,8 +159,6 @@ class BookController extends Controller
 
   public function showreports(){
     $reports =Report::all();
-
-   
     return view('reports',compact('reports'));
   }
 
