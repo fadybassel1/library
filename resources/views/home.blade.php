@@ -22,9 +22,9 @@
 <div style="text-align: center; width:40%; margin:0 auto" class="alert alert-info" role="alert">
     <strong>welcome</strong> {{Auth::user()->name}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">&times;</span>
     </button>
-  </div>
+</div>
 
 
 
@@ -52,15 +52,15 @@ $days[4] = $day['COUNT(*)'];
 @endphp
 
 <main class="mx-lg-5">
-  
+
     <div class="container-fluid mt-5">
         <!--Grid row-->
-  
+
         <div class="row wow fadeIn">
 
             <!--Grid column-->
             {{-- Attendence stat --}}
-            
+
             <div class="col-md-8 mb-4">
                 <!--Card-->
                 <div class="card">
@@ -71,10 +71,10 @@ $days[4] = $day['COUNT(*)'];
                 </div>
                 <!--/.Card-->
                 <br>
-                @if (Auth::user()->role=='admin')
-                    
+                @if (Auth::user()->role=='admin' || Auth::user()->role=='superadmin')
+
                 <span class="badge badge-danger"><a class="dropdown-toggle mr-2" type="button" data-toggle="dropdown"
-                    aria-haspopup="true"><i class="fas fa-trash fa-2x" aria-hidden="true"> سلة النفايات</i></a>
+                        aria-haspopup="true"><i class="fas fa-trash fa-2x" aria-hidden="true"> سلة النفايات</i></a>
                     <div style="color: black" class="dropdown-menu">
                         <a class="dropdown-item" href="{{route('deletedbooks')}}">الكتب</a>
                         <a class="dropdown-item" href="{{route('deletedreaders')}}">الاعضاء</a>
@@ -109,8 +109,9 @@ $days[4] = $day['COUNT(*)'];
                             <a class="list-group-item list-group-item-action waves-effect">عدد الكتب
                                 <span class="badge badge-dark badge-pill pull-right">{{ $booksCount }}</span>
                             </a>
-                            @if(auth()->user()->role=='admin')
-                        <a href="{{route('showreports')}}" class="list-group-item list-group-item-action waves-effect">الشكاوى
+                            @if(auth()->user()->role=='admin' || auth()->user()->role=='superadmin')
+                            <a href="{{route('showreports')}}"
+                                class="list-group-item list-group-item-action waves-effect">الشكاوى
                                 <span class="badge badge-danger badge-pill pull-right">{{ $reportsCount }}</span>
                             </a>
                             @endif
@@ -161,131 +162,9 @@ $days[4] = $day['COUNT(*)'];
             <!--Grid column-->
 
         </div>
-        <!--Grid row-->
-
-        {{-- <!--Grid row-->
-        <div class="row wow fadeIn">
-
-            <!--Grid column-->
-            <div class="col-md-6 mb-4">
-
-                <!--Card-->
-                <div class="card">
-
-                    <!--Card content-->
-                    <div class="card-body">
-
-                        <!-- Table  -->
-                        <table class="table table-hover">
-                            <!-- Table head -->
-                            <thead class="blue-grey lighten-4">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Lorem</th>
-                                    <th>Ipsum</th>
-                                    <th>Dolor</th>
-                                </tr>
-                            </thead>
-                            <!-- Table head -->
-
-                            <!-- Table body -->
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Cell 1</td>
-                                    <td>Cell 2</td>
-                                    <td>Cell 3</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Cell 4</td>
-                                    <td>Cell 5</td>
-                                    <td>Cell 6</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cell 7</td>
-                                    <td>Cell 8</td>
-                                    <td>Cell 9</td>
-                                </tr>
-                            </tbody>
-                            <!-- Table body -->
-                        </table>
-                        <!-- Table  -->
-
-                    </div>
-
-                </div>
-                <!--/.Card-->
-
-            </div>
-            <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-md-6 mb-4">
-
-                <!--Card-->
-                <div class="card">
-
-                    <!--Card content-->
-                    <div class="card-body">
-
-                        <!-- Table  -->
-                        <table class="table table-hover">
-                            <!-- Table head -->
-                            <thead class="blue lighten-4">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Lorem</th>
-                                    <th>Ipsum</th>
-                                    <th>Dolor</th>
-                                </tr>
-                            </thead>
-                            <!-- Table head -->
-
-                            <!-- Table body -->
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Cell 1</td>
-                                    <td>Cell 2</td>
-                                    <td>Cell 3</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Cell 4</td>
-                                    <td>Cell 5</td>
-                                    <td>Cell 6</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cell 7</td>
-                                    <td>Cell 8</td>
-                                    <td>Cell 9</td>
-                                </tr>
-                            </tbody>
-                            <!-- Table body -->
-                        </table>
-                        <!-- Table  -->
-                    </div>
-                </div>
-                <!--/.Card-->
-            </div>
-            <!--Grid column-->
-
-        </div>
-        <!--Grid row--> --}}
     </div>
 </main>
 <!--Main layout-->
-
-{{-- <!-- Initializations -->
-<script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
-</script> --}}
-
-<!-- Charts -->
 <script>
     $('#DBTable').DataTable();
 
