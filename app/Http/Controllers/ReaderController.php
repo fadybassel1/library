@@ -9,9 +9,7 @@ use App\Photo;
 use App\Traits\StoreImageTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Johntaa\Arabic\Arabic\I18N_Arabic_Soundex;
-use Illuminate\Support\Facades\Storage;
 
 
 class ReaderController extends Controller
@@ -24,7 +22,7 @@ class ReaderController extends Controller
     $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedreaders', 'restoredeleted');
   }
 
-  
+
 
   /**
    * Display a listing of the resource.
@@ -97,12 +95,9 @@ class ReaderController extends Controller
     $reader->entrydate = $request['entrydate'];
     $reader->formno = $request['formno'];
     $reader->category = $request['category'];
-    $reader->password='';  
     $reader->whocreated = Auth::user()->name;
     $reader->active = 1;
     $reader->soundlike = @$arabic->soundex($request['name']);
-    $reader->save();
-    $reader->password= Hash::make($reader->id);
     $reader->save();
     return back()->with('created', 'تم تسجيل العضو');
   }
@@ -191,21 +186,17 @@ class ReaderController extends Controller
     try {
 
       $reader = Reader::where('formno', $request->formno)->with('photo')->firstOrFail();
-      
     } catch (ModelNotFoundException $e) {
       return redirect()->back()->with('error', ' رقم الاستمارة غير صحيح');
     }
     $img = $request['image'];
 
     if ($img != null) {
-      $this->storeCapturedImage($img,$reader);
-    
-    } 
-    else {
-    
+      $this->storeCapturedImage($img, $reader);
+    } else {
+
       $file = $request->file('filee');
-      $this->storeUploadedImage($file,$reader);
-    
+      $this->storeUploadedImage($file, $reader);
     }
     return redirect()->back()->with('status', $reader->id);
   }

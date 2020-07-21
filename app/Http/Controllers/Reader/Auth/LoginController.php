@@ -35,17 +35,18 @@ class LoginController extends Controller
             'id' => 'required|size:8',
         ]);
 
-        if(Auth::guard('reader')->attempt(['name'=>$request->name,'password'=>$request->id],$request->remember)){
-            $user = Reader::where('id', $request->id)->first();
-             Log::info('READER: ' . $user->name . ' Enter At ' . date("Y-m-d H:i:s"));
-             Session::put('lastLogin', $user->last_login);
-             $user->last_login = date('Y-m-d');
-             $user->save();
+        $user = Reader::where('id', $request->id)->first();
+        if (empty($user) || strtok($user->name,  ' ') != $request->name) {
+            return redirect()->back()->with('status', 'الاسم او الرقم غير صحيح');
+        }
+
+        if (Auth::guard('reader')->loginUsingId($request->id)) {
+            Log::info('READER: ' . $user->name . ' Enter At ' . date("Y-m-d H:i:s"));
+            Session::put('lastLogin', $user->last_login);
+            $user->last_login = date('Y-m-d');
+            $user->save();
             return redirect()->intended(route('reader.dashboard'));
         }
-        return redirect()->back()->with('status','الاسم او الرقم غير صحيح');
-
-
 
         // $user = Reader::where('id', $request->id)->first(); // Something like User:: where() or whatever depending on your impl.
         // if (!$user)
@@ -74,6 +75,4 @@ class LoginController extends Controller
     {
         return view('reader.auth.login');
     }
-
-
 }
