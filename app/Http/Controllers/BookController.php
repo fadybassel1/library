@@ -6,6 +6,7 @@ use App\Book;
 use App\Tag;
 use App\Report;
 use App\Events\UserReadBook;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class BookController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedbooks', 'restoredeleted', 'showreports', 'deletereport');
+   
   }
 
   /* Display a listing of the resource.
@@ -72,8 +73,13 @@ class BookController extends Controller
    */
   public function edit(Book $book)
   {
-    $tags = Tag::all();
-    return view('book.edit', compact('book', 'tags'));
+    
+    if (Gate::allows('edit-delete-book')) {
+   
+      $tags = Tag::all();
+      return view('book.edit', compact('book', 'tags'));
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
 
@@ -85,8 +91,14 @@ class BookController extends Controller
    */
   public function destroy(Book $book)
   {
-    $book->delete();
+    if (Gate::allows('edit-delete-book')) {
+   
+      $book->delete();
     return redirect()->route('books.index')->with('status', 'تم حذف الكتاب');
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
+
+    
   }
 
   /**
@@ -99,9 +111,15 @@ class BookController extends Controller
   public function update(Request $request, Book $book)
   {
     // dd($request);
-    $book->update($request->except(['tags']));
-    $book->tags()->sync($request->tags);
-    return redirect()->route('books.show', $book)->with('status', 'تم تعديل بيانات الكتاب بنجاح');
+    if (Gate::allows('edit-delete-book')) {
+   
+      
+          $book->update($request->except(['tags']));
+          $book->tags()->sync($request->tags);
+          return redirect()->route('books.show', $book)->with('status', 'تم تعديل بيانات الكتاب بنجاح');
+    
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   public function bookSearch(Request $request)
@@ -124,14 +142,21 @@ class BookController extends Controller
 
   public function deletedbooks()
   {
-    $books = Book::onlyTrashed()->get();
-    return view('book.showdeleted', compact('books'));
+    if (Gate::allows('view-restore-recycle')) {
+   
+      $books = Book::onlyTrashed()->get();
+      return view('book.showdeleted', compact('books'));
+         
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   public function restoredeleted($book)
   {
+    if (Gate::allows('view-restore-recycle')) {
     Book::onlyTrashed()->findOrFail($book)->restore();
     return redirect()->back()->with('status', 'تم استرجاع الكتاب');
+    } else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   public function bookTagSearch($tagid)
@@ -158,14 +183,31 @@ class BookController extends Controller
   }
 
   public function showreports(){
-    $reports =Report::all();
-    return view('reports',compact('reports'));
+    
+
+    if (Gate::allows('view-delete-report')) {
+   
+      
+      $reports =Report::all();
+      return view('reports',compact('reports'));
+         
+    
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   public function deletereport($id)
   {
-    $report = Report::findOrFail($id);
-    $report->delete();
-    return back()->with('status', 'تم حذف الشكوى');
+    if (Gate::allows('view-delete-report')) {
+   
+      
+      $report = Report::findOrFail($id);
+      $report->delete();
+      return back()->with('status', 'تم حذف الشكوى');
+         
+    
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
+
   }
 }
