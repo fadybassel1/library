@@ -66,9 +66,9 @@
 @endif
 
 <div class="text-center">
-    @if (Auth::user()->role=='admin')
     <a data-toggle="modal" data-target="#modalSubscriptionForm" style="color: white" class="btn btn-warning"> ارسال
         مشكلة <i style="color: white" class="fas fa-flag"> </i></a>
+    @if (Auth::user()->role=='admin' || Auth::user()->role=='superadmin')
     <a href="{{ route('books.edit', $book) }}" class="btn btn-primary">تعديل</a>
     <form class="d-inline" action="{{ route('books.destroy', $book) }}" method="POST">
         @csrf
@@ -114,12 +114,6 @@
     <p class="text-center alert alert-info">المحتوى</p>
     <p class="book-values"> {{ $book['book_description'] != "" ? $book['book_description'] : 'NOT KNOWN' }} </p>
 </div>
-
-
-
-
-
-
 
 
 

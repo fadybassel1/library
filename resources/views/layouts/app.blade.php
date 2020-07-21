@@ -93,6 +93,46 @@
                             </div>
                         </li>
                         @elseif (Auth::user())
+
+                        {{-- DATA ENTRY --}}
+                        @if (Auth::user()->role == "dataentry")
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">{{ __('الكتب') }}</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('books.index')}}">بحث</a>
+                                <a class="dropdown-item" href="{{route('books.create')}}">اضافة كتاب</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('readers.index')}}">جميع الاعضاء</a>
+                        </li>
+
+                        {{-- MODERATOR --}}
+                        @elseif (Auth::user()->role == "moderator")
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">{{ __('الكتب') }}</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('books.index')}}">بحث</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">الاعضاء</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('readers.index')}}">جميع الاعضاء</a>
+                                <a class="dropdown-item" href="{{route('readers.takepicture')}}">استخراج كارت</a>
+                                <a class="dropdown-item" href="{{route('readers.create')}}">تسجيل عضو</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('attendance')}}">{{ __('تسجيل') }}</a>
+                        </li>
+
+                        {{-- ADMIN --}}
+                        @elseif (Auth::user()->role == "admin")
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('tags.index')}}">{{ __('Tags') }}</a>
                         </li>
@@ -113,11 +153,49 @@
                                 <a class="dropdown-item" href="{{route('readers.create')}}">تسجيل عضو</a>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('attendance')}}">{{ __('تسجيل') }}</a>
+                        </li>
+
+                        {{-- SUPER ADMIN --}}
+                        @elseif (Auth::user()->role == "superadmin")
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('tags.index')}}">{{ __('Tags') }}</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">{{ __('الكتب') }}</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('books.index')}}">بحث</a>
+                                <a class="dropdown-item" href="{{route('books.create')}}">اضافة كتاب</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">الاعضاء</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('readers.index')}}">جميع الاعضاء</a>
+                                <a class="dropdown-item" href="{{route('readers.takepicture')}}">استخراج كارت</a>
+                                <a class="dropdown-item" href="{{route('readers.create')}}">تسجيل عضو</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">المديرين</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('readers.index')}}">جميع المديرين</a>
+                                <a class="dropdown-item" href="{{route('readers.create')}}">اضافة مدير</a>
+                            </div>
+                        </li>
 
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('attendance')}}">{{ __('تسجيل') }}</a>
                         </li>
+
+                        @endif
+
+                        {{-- FOR ALL ROLES --}}
                         <li class="nav-item">
 
                             <a class="nav-link" onclick="event.preventDefault();
@@ -130,6 +208,8 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
+
+                        {{-- GUEST --}}
                         @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('reader.login') }}">{{ __('Login') }}</a>
