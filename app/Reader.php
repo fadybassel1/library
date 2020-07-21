@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Reader extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;
+    use SoftDeletes;    
     protected  $guarded = [];
 
     public function photo()

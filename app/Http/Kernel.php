@@ -51,8 +51,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'reader.auth' => \App\Http\Middleware\RedirectIfNotReader::class,
-        'reader.guest' => \App\Http\Middleware\RedirectIfReader::class,
         // 'reader.verified' => \App\Http\Middleware\EnsureReaderEmailIsVerified::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

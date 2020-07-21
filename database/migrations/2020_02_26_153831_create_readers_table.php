@@ -18,7 +18,7 @@ class CreateReadersTable extends Migration
             $table->string('name', 255);
             $table->string('phone', 11)->nullable();
             $table->string('email', 50)->nullable();
-
+            $table->string('password');
             $table->date('bdate')->nullable();
             $table->string('streetname', 50)->nullable();
             $table->string('region', 50)->nullable();

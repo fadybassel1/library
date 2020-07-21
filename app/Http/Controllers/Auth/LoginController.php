@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN;
 
     /**
      * Create a new controller instance.
@@ -37,16 +37,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware(['guest:reader','guest:web'])->except('logout');
     }
 
-    public function showLoginForm()
-    {
-        if (parse_url(session()->get('url.intended'), PHP_URL_PATH) == "/reader") {
-            session(['url.intended' => '/home']);
-        }
-        return view('auth.login');
-    }
+
 
     public function login(Request $request)
     {
@@ -85,7 +79,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        Log::info("USER: " . $this->guard()->user()->name . ' Exit At ' . date("d-m-Y H:i:s"));
+       // Log::info("USER: " . $this->guard()->user()->name . ' Exit At ' . date("d-m-Y H:i:s"));
         $this->guard()->logout();
 
         $request->session()->invalidate();

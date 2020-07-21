@@ -31,7 +31,7 @@ Book read
 
 @section('content')
 <div style="text-align: center; width:40%; margin:0 auto" class="alert alert-info" role="alert">
-    <strong>welcome</strong> {{Auth::guard('reader')->user()->name}}
+    <strong>welcome</strong>  {{auth()->user()->name}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>

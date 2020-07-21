@@ -20,7 +20,7 @@
 
 
 <div style="text-align: center; width:40%; margin:0 auto" class="alert alert-info" role="alert">
-    <strong>welcome</strong> {{Auth::user()->username}}
+    <strong>welcome</strong> {{Auth::user()->name}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

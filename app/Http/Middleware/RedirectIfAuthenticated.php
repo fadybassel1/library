@@ -19,7 +19,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            if($guard =='reader')
+            return redirect(RouteServiceProvider::HOME);
+          else  return redirect(RouteServiceProvider::ADMIN);
         }
 
         return $next($request);
