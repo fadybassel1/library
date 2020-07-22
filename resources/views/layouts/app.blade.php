@@ -46,6 +46,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="icon" href="{{ URL::asset('/img/logo.png') }}" type="image/x-icon" />
 </head>
 
 <body>
