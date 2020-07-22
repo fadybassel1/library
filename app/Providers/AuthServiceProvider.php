@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('take-attendace', function ($user) {
-            return $user->role=='moderator';
+            return $user->role=='moderator' || $user->role=='superadmin' || $user->role =='admin';
         });
 
         Gate::define('edit-delete-book', function ($user) {

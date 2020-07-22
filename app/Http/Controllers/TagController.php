@@ -70,8 +70,10 @@ class TagController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::allows('edit-delete-tag')) {
         $tag = Tag::find($id);
         return view('tag.edit', compact('tag'));
+        } else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
     }
 
     /**
@@ -83,6 +85,7 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Gate::allows('edit-delete-tag')) {
         $this->validate($request, [
             'name' => 'required | min:3',
         ]);
@@ -90,6 +93,7 @@ class TagController extends Controller
         $tag->name = $request->name;
         $tag->save();
         return redirect(route('tags.index'))->with('status', 'تم تعديل التاج');;
+    } else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
     }
 
     /**
@@ -100,7 +104,10 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        if (Gate::allows('edit-delete-tag')) {
         $tag->delete();
         return back()->with('status', 'تم مسح التاج');
+    } else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
     }
+    
 }

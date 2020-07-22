@@ -17,12 +17,8 @@ class ReaderController extends Controller
   use StoreImageTrait;
   public function __construct()
   {
-
     $this->middleware('auth');
-    $this->middleware('role:admin')->only('edit', 'destroy', 'update', 'deletedreaders', 'restoredeleted');
   }
-
-
 
   /**
    * Display a listing of the resource.
@@ -111,7 +107,13 @@ class ReaderController extends Controller
    */
   public function edit(Reader $reader)
   {
-    return view('reader.edit', compact('reader'));
+
+    if (Gate::allows('edit-delete-reader')) {
+   
+      return view('reader.edit', compact('reader'));
+ 
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
 
@@ -123,8 +125,13 @@ class ReaderController extends Controller
    */
   public function destroy(Reader $reader)
   {
-    $reader->delete();
-    return back()->with('status', 'تم حذف العضو');
+    if (Gate::allows('edit-delete-reader')) {
+   
+      $reader->delete();
+      return back()->with('status', 'تم حذف العضو');
+ 
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   /**
@@ -136,31 +143,35 @@ class ReaderController extends Controller
    */
   public function update(Request $request, Reader $reader)
   {
-
-
-    $reader->update($request->all());
-
-
-
-
-    return redirect()->route('readers.show', $reader)->with('status', 'تم تعديل البيانات بنجاح');
+    if (Gate::allows('edit-delete-reader')) {
+   
+      $reader->update($request->all());
+      return redirect()->route('readers.show', $reader)->with('status', 'تم تعديل البيانات بنجاح');
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   public function attend(Request $request)
   {
 
-    $request->validate([
-      'id' => "numeric",
-    ]);
-
-
-    try {
-      $reader = \App\Reader::findOrFail($request->id);
-      Visit::create(['reader_id' => $reader->id, 'day' => date("Y-m-d"), 'time' => date('Y-m-d H:i:s')]);
-      return view('reader.attendance', compact('reader'));
-    } catch (ModelNotFoundException $e) {
-      return redirect('attendance')->with('error', 'لا يوجد عضو بهذا الرقم');
+    if (Gate::allows('take-attendace')) {
+   
+ 
+      $request->validate([
+        'id' => "numeric",
+      ]);
+  
+  
+      try {
+        $reader = \App\Reader::findOrFail($request->id);
+        Visit::create(['reader_id' => $reader->id, 'day' => date("Y-m-d"), 'time' => date('Y-m-d H:i:s')]);
+        return view('reader.attendance', compact('reader'));
+      } catch (ModelNotFoundException $e) {
+        return redirect('attendance')->with('error', 'لا يوجد عضو بهذا الرقم');
+      }
     }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
+
   }
 
   public function storeimage(Request $request)
@@ -210,13 +221,25 @@ class ReaderController extends Controller
 
   public function deletedreaders()
   {
-    $readers = Reader::onlyTrashed()->get();
-    return view('reader.showdeleted', compact('readers'));
+    if (Gate::allows('edit-delete-reader')) {
+   
+      
+          $readers = Reader::onlyTrashed()->get();
+          return view('reader.showdeleted', compact('readers'));
+ 
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
   }
 
   public function restoredeleted($reader)
   {
-    Reader::onlyTrashed()->findOrFail($reader)->restore();
-    return redirect()->back()->with('status', 'تم استرجاع القارىء');
+    if (Gate::allows('edit-delete-reader')) {
+   
+      Reader::onlyTrashed()->findOrFail($reader)->restore();
+      return redirect()->back()->with('status', 'تم استرجاع القارىء');
+      
+    }
+    else return redirect()->back()->with('status','هذا الأمر غير مصرح لك');
+
   }
 }
