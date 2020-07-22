@@ -183,8 +183,8 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">المديرين</a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{route('readers.index')}}">جميع المديرين</a>
-                                <a class="dropdown-item" href="{{route('readers.create')}}">اضافة مدير</a>
+                                <a class="dropdown-item" href="{{route('users.index')}}">جميع المديرين</a>
+                                <a class="dropdown-item" href="{{route('users.create')}}">اضافة مدير</a>
                             </div>
                         </li>
 

@@ -45,8 +45,10 @@ Route::get('/attendance', function () {
 
 Route::get('/deletedreaders', 'ReaderController@deletedreaders')->name('deletedreaders');
 Route::get('/deletedbooks', 'BookController@deletedbooks')->name('deletedbooks');
+Route::get('/deletedusers', 'UserController@deletedusers')->name('deletedusers');
 Route::get('/restoredeletedbook/{book}', 'BookController@restoredeleted')->name('restorebook');
 Route::get('/restoredeletedreader/{reader}', 'ReaderController@restoredeleted')->name('restorereader');
+Route::get('/restoredeleteduser/{user}', 'UserController@restoredeleted')->name('restoreuser');
 
 Route::post('/storess', 'ReaderController@attend')->name('storeattendance');
 
@@ -56,4 +58,6 @@ Route::get('/printcard/{id}', 'ReaderController@printcard')->name('printcard');
 Route::post('/reportBook', 'BookController@report')->name('reportproblem');
 
 Route::get('/deletereport/{id}', 'BookController@deletereport')->name('deletereport');
-Route::get('/reports', 'BookController@showreports' )->name('showreports');
+Route::get('/reports', 'BookController@showreports')->name('showreports');
+
+Route::resource('users', 'UserController');

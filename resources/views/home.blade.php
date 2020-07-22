@@ -78,6 +78,9 @@ $days[4] = $day['COUNT(*)'];
                     <div style="color: black" class="dropdown-menu">
                         <a class="dropdown-item" href="{{route('deletedbooks')}}">الكتب</a>
                         <a class="dropdown-item" href="{{route('deletedreaders')}}">الاعضاء</a>
+                        @if (Auth::user()->role=='superadmin')
+                        <a class="dropdown-item" href="{{route('deletedusers')}}">المديرين</a>
+                        @endif
                     </div>
                 </span>
                 @endif
