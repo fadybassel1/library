@@ -31,7 +31,7 @@ Book read
 
 @section('content')
 <div style="text-align: center; width:40%; margin:0 auto" class="alert alert-info" role="alert">
-    <strong>welcome</strong>  {{auth()->user()->name}}
+    <strong>welcome</strong> {{auth()->user()->name}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -65,7 +65,10 @@ Book read
 
                             <!-- Table body -->
                             <tbody dir="rtl">
-                                @foreach (Auth::guard('reader')->user()->books as $i => $book)
+                                @php
+                                $books = Auth::guard('reader')->user()->books()->paginate(5)
+                                @endphp
+                                @foreach ($books as $i => $book)
                                 <tr dir="rtl" style="text-align: right;">
                                     <td>
                                         <a href="/books/{{ $book->id }}">
@@ -78,6 +81,7 @@ Book read
                             </tbody>
                             <!-- Table body -->
                         </table>
+                        {{ $books->links() }}
                         <!-- Table  -->
                     </div>
                 </div>

@@ -42,7 +42,7 @@ class LoginController extends Controller
 
         if (Auth::guard('reader')->loginUsingId($request->id)) {
             Log::info('READER: ' . $user->name . ' Enter At ' . date("Y-m-d H:i:s"));
-            Session::put('lastLogin', $user->last_login);
+            Session::put('lastLogin', $user->last_login == NULL ? date('Y-m-d') : $user->last_login);
             $user->last_login = date('Y-m-d');
             $user->save();
             return redirect()->intended(route('reader.dashboard'));
