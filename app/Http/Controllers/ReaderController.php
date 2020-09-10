@@ -9,8 +9,8 @@ use App\Photo;
 use App\Traits\StoreImageTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Johntaa\Arabic\Arabic\I18N_Arabic_Soundex;
-
 
 class ReaderController extends Controller
 {
@@ -107,9 +107,10 @@ class ReaderController extends Controller
    */
   public function edit(Reader $reader)
   {
+    
 
     if (Gate::allows('edit-delete-reader')) {
-   
+      
       return view('reader.edit', compact('reader'));
  
     }

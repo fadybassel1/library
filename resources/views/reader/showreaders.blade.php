@@ -39,9 +39,9 @@
                 href="/readers/{{$reader->id}}">جميع البيانات</a></td>
             @if (Auth::user()->role == "admin" || Auth::user()->role == "superadmin")
             <td class="pt-3-half"><a class="btn btn-primary btn-rounded btn-sm my-0"
-                href="{{route('readers.edit',$reader)}}">تعديل</a></td>
+                href="{{route('readers.edit',$reader->id)}}">تعديل</a></td>
             <td class="pt-3-half">
-              <form action="{{ route('readers.destroy', $reader) }}" method="POST">
+              <form action="{{ route('readers.destroy', $reader->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <input onclick="return confirm('تاكيد حذف العضو ؟');" class="btn btn-danger btn-rounded btn-sm my-0"
