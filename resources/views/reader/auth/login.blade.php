@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card-header text-center"><a href="/login">Admin ?</a></div>
+            <div class="card-header text-center"><a href="{{ route('login') }}">Admin ?</a></div>
             <br>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>

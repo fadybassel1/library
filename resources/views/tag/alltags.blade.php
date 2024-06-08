@@ -37,7 +37,7 @@
               </a>
             </td>
             <td>
-              <form method="POST" action="/tags/{{ $tag->id }}">
+              <form method="POST" action="tags/{{ $tag->id }}">
                 @csrf
                 @method('DELETE')
                 <button type="submit" onclick="return confirm('Are you sure you want to delete this tag?');"

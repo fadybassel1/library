@@ -71,7 +71,7 @@ Book read
                                 @foreach ($books as $i => $book)
                                 <tr dir="rtl" style="text-align: right;">
                                     <td>
-                                        <a href="/books/{{ $book->id }}">
+                                        <a href="books/{{ $book->id }}">
                                             <h5>{{ $book->book_name }}</h5>
                                             <p>{{ $book['book_description'] }}</p>
                                         </a>

@@ -35,7 +35,7 @@
     <p class="card-text">ID:{{$reader->id ?? "00000000"}}</p>
     <!-- Button -->
     @if($reader->id ?? False)
-    <a href="/readers/{{$reader->id ?? 000000}}" class="btn btn-primary">اظهار</a>
+    <a href="readers/{{$reader->id ?? 000000}}" class="btn btn-primary">اظهار</a>
     @else
     <a href="" class="btn btn-primary">اظهار</a>
     @endif

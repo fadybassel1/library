@@ -85,7 +85,7 @@
 <div class="text-center">
     @foreach ($book->tags as $tag)
     <a style="font-size: 20px; margin-right: 15px;" class="badge badge-light"
-        href="/bookSearch/{{ $tag->id }}">{{ $tag->name }}</a>
+        href="bookSearch/{{ $tag->id }}">{{ $tag->name }}</a>
     @endforeach
 </div>
 <br>

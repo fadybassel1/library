@@ -18,7 +18,7 @@
 <br>
 @endif
 
-<form action="/bookSearch" method="get">
+<form action="{{url('/bookSearch')}}"method="get">
     @csrf
     
     <div style="" class="card align-items-center">
@@ -53,12 +53,12 @@
                         <option value="book_author">مؤلف</option>
                         <option value="book_position">رف</option>
                         <option value="tags">Tags</option>
-                        <option value="all">الجميع</option>
-                        <option disabled>──────────</option>
-                        <option disabled value="genre">تصنيف</option>
+                        <!-- <option value="all">الجميع</option> -->
+                        <!-- <option disabled>──────────</option> -->
+                        <!-- <option disabled value="genre">تصنيف</option>
                         <option value="">— كتاب</option>
                         <option>— مجلة</option>
-                        <option>— موسوعة</option>
+                        <option>— موسوعة</option> -->
                     </select>
                 </div>
             </div>
@@ -69,9 +69,9 @@
 
 
 
-<div  style="margin: 0 auto; text-align: center"  id="container">
+<!-- <div  style="margin: 0 auto; text-align: center"  id="container">
       <iframe id="iframe" src="{{asset('algo.pdf')}}#toolbar=0" width="70%" height="600px;" ></iframe>
-  </div>
+  </div> -->
 
 
 @if ($books ?? '' != NULL)

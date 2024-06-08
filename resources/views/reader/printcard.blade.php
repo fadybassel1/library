@@ -42,7 +42,7 @@
 <input type="hidden" value="{{asset("member photos/$photo")}}" id="img" >
 
     
-     <a href="/readers/{{$reader->id}}">go back</a>
+     <a href="readers/{{$reader->id}}">go back</a>
      <canvas id="myCanvas" width="325px" height="200px" margin="0px" padding="0px"  outline="0px"  style="border:0px solid #999;" dir="rtl"></canvas>
 </body>
 

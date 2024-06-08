@@ -27,7 +27,7 @@ Route::get('/create', 'BookController@create');
 Route::resource('readers', 'ReaderController');
 Route::resource('books', 'BookController');
 Route::resource('tags', 'TagController');
-Route::get('bookSearch', 'BookController@bookSearch');
+Route::get('bookSearch', 'BookController@bookSearch')->name('booksearch');
 Route::get('bookSearch/{tagid}', 'BookController@bookTagSearch');
 
 

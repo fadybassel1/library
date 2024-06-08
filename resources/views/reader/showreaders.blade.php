@@ -36,7 +36,7 @@
             <td class="pt-3-half">{{$reader->phone}}</td>
             <td class="pt-3-half">{{$reader->formno}}</td>
             <td class="pt-3-half"><a class="btn btn-success btn-rounded btn-sm my-0"
-                href="/readers/{{$reader->id}}">جميع البيانات</a></td>
+                href="readers/{{$reader->id}}">جميع البيانات</a></td>
             @if (Auth::user()->role == "admin" || Auth::user()->role == "superadmin")
             <td class="pt-3-half"><a class="btn btn-primary btn-rounded btn-sm my-0"
                 href="{{route('readers.edit',$reader->id)}}">تعديل</a></td>
