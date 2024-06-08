@@ -51,17 +51,37 @@
       <br>
       <p class="alert alert-info">اسم الجزء/رقم السلسلة</p>
       <input name="book_seriesno" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required" value="{{ $book->book_seriesno }}">
+         value="{{ $book->book_seriesno }}">
       <br>
       <p class="alert alert-info">اسم السلسة</p>
       <input name="book_seriesname" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required" value="{{ $book->book_seriesname }}">
+         value="{{ $book->book_seriesname }}">
       <br>
       <p class="alert alert-info">اسم الناشر</p>
       <input name="book_publisher" style="width: 90%; margin: 0 auto;" class="form-control text-center"
         required="required" value="{{ $book->book_publisher }}">
       <br>
-      <p class="alert alert-info">يسمح بالقراءة</p>
+      <p class="text-center alert alert-info">تصنيف المكتبة</p>
+      <input name="book_desc" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required" value="{{ $book->book_desc }}">
+      <br>
+      <p class="text-center alert alert-info">ديوى العشرى</p>
+      <input name="dewy_tenth" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+         value="{{ $book->dewy_tenth }}">
+      <br>
+      <p class="text-center alert alert-info">الترقيم الدولى</p>
+      <input name="col_8" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+       value="{{ $book->col_8 }}">
+      <br>
+      <p class="text-center alert alert-info">نوع الوعاء</p>
+      <input name="book_col11" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+         value="{{ $book->book_col11 }}">
+      <br>
+      <p class="text-center alert alert-info">حالة الكتاب</p>
+      <input name="book_condition" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        value="{{ $book->book_condition }}">
+      <br>
+  <p class="alert alert-info">يسمح بالقراءة</p>
       <div style="text-align: center" class="custom-control custom-switch">
         <input type="checkbox" name="book_access" value="1" {{ $book->book_access == 1 ? 'checked' : "" }}
           class="custom-control-input" id="customSwitches">

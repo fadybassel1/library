@@ -48,8 +48,8 @@
                 <div class="col">
                     <select style="background-color: #363936; color:white" name="search" id="search"
                         class="form-control">
-                        <option value="book_name">كتاب</option>
-                        <option value="book_description">وصف</option>
+                        <option value="book_name">اسم الكتاب</option>
+                        <option value="book_description">محتوى</option>
                         <option value="book_author">مؤلف</option>
                         <option value="book_position">رف</option>
                         <option value="tags">Tags</option>

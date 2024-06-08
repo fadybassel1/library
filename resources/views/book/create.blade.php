@@ -49,15 +49,35 @@
       <br>
       <p class="alert alert-info">اسم الجزء/رقم السلسلة</p>
       <input name="book_seriesno" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+        >
       <br>
       <p class="alert alert-info">اسم السلسة</p>
       <input name="book_seriesname" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        required="required">
+        >
       <br>
       <p class="alert alert-info">اسم الناشر</p>
       <input name="book_publisher" style="width: 90%; margin: 0 auto;" class="form-control text-center"
         required="required">
+      <br>
+      <p class="text-center alert alert-info">تصنيف المكتبة</p>
+      <input name="book_desc" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        required="required">
+      <br>
+      <p class="text-center alert alert-info">ديوى العشرى</p>
+      <input name="dewy_tenth" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        >
+      <br>
+      <p class="text-center alert alert-info">الترقيم الدولى</p>
+      <input name="col_8" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+       >
+      <br>
+      <p class="text-center alert alert-info">نوع الوعاء</p>
+      <input name="book_col11" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+        >
+      <br>
+      <p class="text-center alert alert-info">حالة الكتاب</p>
+      <input name="book_condition" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+      >
       <br>
       <p class="alert alert-info">يسمح بالقراءة</p>
       <div style="text-align: center" class="custom-control custom-switch">

@@ -109,6 +109,21 @@
     <p class="text-center alert alert-info">اسم الناشر</p>
     <p class="book-values"> {{ $book['book_publisher'] != "" ? $book['book_publisher'] : 'NOT KNOWN' }} </p>
 
+    <p class="text-center alert alert-info">تصنيف المكتبة</p>
+    <p class="book-values"> {{ $book['book_desc'] != "" ? $book['book_desc'] : 'NOT KNOWN' }} </p>
+
+    <p class="text-center alert alert-info">ديوى العشرى</p>
+    <p class="book-values"> {{ $book['dewy_tenth'] != "" ? $book['dewy_tenth'] : 'NOT KNOWN' }} </p>
+
+    <p class="text-center alert alert-info">الترقيم الدولى</p>
+    <p class="book-values"> {{ $book['col_8'] != "" ? $book['col_8'] : 'NOT KNOWN' }} </p>
+    
+    <p class="text-center alert alert-info">نوع الوعاء</p>
+    <p class="book-values"> {{ $book['book_col11'] != "" ? $book['book_col11'] : 'NOT KNOWN' }} </p>
+    
+    <p class="text-center alert alert-info">حالة الكتاب</p>
+    <p class="book-values"> {{ $book['book_condition'] != "" ? $book['book_condition'] : 'NOT KNOWN' }} </p>
+
 </div>
 <div class="infoo">
     <p class="text-center alert alert-info">المحتوى</p>

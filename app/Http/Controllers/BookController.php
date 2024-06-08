@@ -9,7 +9,7 @@ use App\Events\UserReadBook;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Redirect;
 
 class BookController extends Controller
 {
@@ -59,9 +59,10 @@ class BookController extends Controller
    */
   public function store(Request $request)
   {
+    $request->merge(["book_creator" => auth()->user()->id]);
     $book = Book::create($request->except(['tags']));
     $book->tags()->attach($request->tags);
-    return back()->with('created', 'تم اضافة الكتاب');
+    return Redirect::route('books.show',$book->id)->with('status', 'تم اضافة الكتاب');
   }
 
 
@@ -113,7 +114,7 @@ class BookController extends Controller
     // dd($request);
     if (Gate::allows('edit-delete-book')) {
    
-      
+          $request->merge(["book_last_updated_by" => auth()->user()->id]);
           $book->update($request->except(['tags']));
           $book->tags()->sync($request->tags);
           return redirect()->route('books.show', $book)->with('status', 'تم تعديل بيانات الكتاب بنجاح');
@@ -133,8 +134,8 @@ class BookController extends Controller
       return view('book.allbooks', compact('books', 'tags'));
     }
     $searching = $request['qq'];
-    if ($request['search'] == "book_position")
-      $searching = 'ر' . $request['qq'] . '-';
+    // if ($request['search'] == "book_position")
+    //   $searching = 'ر' . $request['qq'] . '-';
 
     $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
     return view('book.allbooks', compact('books', 'tags'));
