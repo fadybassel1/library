@@ -76,7 +76,7 @@
         >
       <br>
       <p class="text-center alert alert-info">حالة الكتاب</p>
-      <input name="book_condition" style="width: 90%; margin: 0 auto;" class="form-control text-center"
+      <input required="required" name="book_condition" style="width: 90%; margin: 0 auto;" class="form-control text-center"
       >
       <br>
       <p class="alert alert-info">يسمح بالقراءة</p>

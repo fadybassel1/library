@@ -79,7 +79,7 @@
       <br>
       <p class="text-center alert alert-info">حالة الكتاب</p>
       <input name="book_condition" style="width: 90%; margin: 0 auto;" class="form-control text-center"
-        value="{{ $book->book_condition }}">
+      required="required" value="{{ $book->book_condition }}">
       <br>
   <p class="alert alert-info">يسمح بالقراءة</p>
       <div style="text-align: center" class="custom-control custom-switch">

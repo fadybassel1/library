@@ -6,6 +6,7 @@ use App\Book;
 use App\Tag;
 use App\Report;
 use App\Events\UserReadBook;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class BookController extends Controller
   public function index()
   {
     $tags = Tag::all();
-    return view('book.allbooks', compact('tags'));
+    $users = User::select('id','name')->where('role','!=','superadmin')->withTrashed()->get();
+    return view('book.allbooks', compact('tags','users'));
   }
 
 
@@ -125,20 +127,56 @@ class BookController extends Controller
 
   public function bookSearch(Request $request)
   {
+    $users = User::select('id','name')->where('role','!=','superadmin')->withTrashed()->get();
 
     $tags = Tag::all();
+    $query = Book::query();
     if ($request['search'] == 'tags') {
-      $books = Book::whereHas('tags', function ($query) use ($request) {
-        $query->whereIn('tag_id', $request->tags);
-      })->Paginate(10);
-      return view('book.allbooks', compact('books', 'tags'));
+      $books = $query->whereHas('tags', function ($q) use ($request) {
+        $q->whereIn('tag_id', $request->tags);
+      });
     }
-    $searching = $request['qq'];
-    // if ($request['search'] == "book_position")
-    //   $searching = 'ر' . $request['qq'] . '-';
+    $searching = $request['qq'] ?? "";
+    $searching = str_replace(['ي', 'أ', 'إ', 'ة', 'ه', 'ؤ', 'ئ', 'ء'], ['ى', 'ا', 'ا', 'ه', 'ه', 'و', 'ي', 'ا'], $searching);
+    $column = $request['search'] ?? "book_name";
+    $query->where(\DB::raw("REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(".$column.", 'ي', 'ى'), 'أ', 'ا'), 'إ', 'ا'), 'ة', 'ه'), 'ه', 'ه'), 'ؤ', 'و'), 'ئ', 'ي'), 'ء', 'ا')"), 'LIKE', '%' . $searching . '%');
+    
+    if($request->input("edited_to"))
+    $query->whereDate('updated_at', '<=', $request->input("edited_to"));
+    
+    if($request->input("edited_from"))
+    $query->whereDate('updated_at', '>=', $request->input("edited_from"));
+    
+    if($request->input("created_to"))
+    $query->whereDate('created_at', '<=', $request->input("created_to"));
+    
+    if($request->input("created_from"))
+    $query->whereDate('created_at', '>=', $request->input("created_from"));
+    
+    if($request->input("created_by"))
+    $query->where('book_creator', '=', $request->input("created_by"));
+    
+    if($request->input("last_edited_by"))
+    $query->where('book_last_updated_by', '=', $request->input("last_edited_by"));
+    
+    $filter = false;
+    $sortBy = $request->input("sort_by") ?? "id";
+    
+    if(count($query->getQuery()->wheres) > 1 || $sortBy != "id") $filter = true;
 
-    $books = Book::Where($request['search'], 'like', '%' . $searching . '%')->Paginate(10);
-    return view('book.allbooks', compact('books', 'tags'));
+    $sortOrder = $request->input("sortDecending") == "on" ? "desc":"asc";
+    
+    // null values last
+    $query->orderByRaw('ISNULL('.$sortBy.'), '.$sortBy.' '.$sortOrder);
+    
+    
+    if($filter){
+      $query->with('creator:id,name')->with('lastUpdater:id,name');
+    }
+    
+    $books = $query->Paginate(10);
+    
+    return view('book.allbooks', compact('books', 'tags','users','filter'));
   }
 
   public function deletedbooks()
@@ -162,9 +200,11 @@ class BookController extends Controller
 
   public function bookTagSearch($tagid)
   {
+    $users = User::select('id','name')->where('role','!=','superadmin')->withTrashed()->get();
+
     $tag = Tag::findOrFail($tagid);
     $tags=Tag::all();
-    return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name , 'tags' => $tags]);
+    return view('book.allbooks', ['books' => $tag->books()->paginate(10), 'tagname' => $tag->name , 'tags' => $tags,'users'=>$users]);
   }
 
   public function report(Request $request)

@@ -20,8 +20,25 @@ class Book extends Model
     return $this->belongsToMany('App\Tag', 'book_tag');
   }
 
+  public function creator()
+  {
+    return $this->belongsTo('App\User', 'book_creator');
+  }
+
+  public function lastUpdater()
+  {
+    return $this->belongsTo('App\User', 'book_last_updated_by');
+  }
+
   public function readers()
   {
     return $this->belongsToMany('App\Reader', 'book_reader')->withPivot('date_read');
+  }
+
+  protected static function booted(): void
+  {
+    static::creating(function (self $model) {
+        $model->updated_at = null;
+    });
   }
 }
