@@ -167,10 +167,10 @@
                     @if(isset($filter) && $filter)
              
                     <h5 style="direction:rtl "> 
-                        <span class="badge badge-success mr-2">تاريخ الاضافة: {{$book?->created_at?->format("Y-m-d") ?? 'لا يوجد'}} </span> 
-                        <span class="badge badge-success mr-2">اضافة: {{$book->creator?->name ?? 'لا يوجد'}}</span> 
-                        <span class="badge badge-warning mr-2">تاريخ التعديل: {{$book?->updated_at?->format("Y-m-d") ?? 'لا يوجد'}} </span> 
-                        <span class="badge badge-warning mr-2">تعديل: {{$book->lastUpdater?->name ?? 'لا يوجد'}} </span> 
+                        <span class="badge badge-success mr-2">تاريخ الاضافة: {{!empty($book->created_at) ? $book->created_at->format("Y-m-d") : 'لا يوجد'}} </span> 
+                        <span class="badge badge-success mr-2">اضافة: {{!empty($book->creator) ? $book->creator->name : 'لا يوجد'}}</span> 
+                        <span class="badge badge-warning mr-2">تاريخ التعديل: {{!empty($book->updated_at) ? $book->updated_at->format("Y-m-d") : 'لا يوجد'}} </span> 
+                        <span class="badge badge-warning mr-2">تعديل: {{!empty($book->lastUpdater) ? $book->lastUpdater->name : 'لا يوجد'}} </span> 
                     </h5>
          
                     @endif
